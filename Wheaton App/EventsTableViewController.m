@@ -178,7 +178,7 @@ static NSString *cellIdentifier = @"EventAutoTableViewCell";
 {
     WebViewController *detailViewController = [segue destinationViewController];
     NSIndexPath *indexPath = sender;
-    detailViewController.url = [NSURL URLWithString:[[[eventResults objectAtIndex:indexPath.row] objectForKey:@"custom"] objectForKey:@"link"]];
+    detailViewController.url = [NSURL URLWithString:[[[eventResults objectAtIndex:indexPath.row]objectForKey:@"custom"] objectForKey:@"link"]];
 }
 
 

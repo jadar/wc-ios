@@ -16,60 +16,48 @@
 @end
 
 @implementation MapDetailViewController
+{
+    JCRBlurView *blurView;
+}
 
 static NSString *cellIdentifier = @"AutoTableViewCell";
-
-@synthesize name, buildingImage, blurView, bottomBlur, building, detailView, buildingTable;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:building.image]
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.building.image]
                                              cachePolicy:NSURLRequestUseProtocolCachePolicy
                                          timeoutInterval:60.0];
     
     [self.buildingImage setImageWithURLRequest:request
                               placeholderImage:[UIImage imageNamed:@"building-default"]
                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                           buildingImage.image = image;
+                                           self.buildingImage.image = image;
                                        }
                                        failure:nil];
     
-    @try {
-        blurView = [JCRBlurView new];
-        [blurView setFrame:CGRectMake(0,
-                                      bottomBlur.frame.origin.y,
-                                      bottomBlur.frame.size.width,
-                                      50)];
-        blurView.alpha = 0.95;
-        [self.detailView insertSubview:blurView belowSubview:bottomBlur];
-        [self.view bringSubviewToFront:name];
-    }
-    @catch (NSException * e) {
-        NSLog(@"Exception: %@", e);
-    }
     
-    self.name.text = building.title;
-    
-    buildingTable = [[NSMutableArray alloc] init];
+    self.name.text = self.building.title;
+    self.buildingTable = [[NSMutableArray alloc] init];
     
     NSMutableArray *descriptionSection = [[NSMutableArray alloc] init];
     
-    if (!(building.description == (id)[NSNull null] || building.description.length == 0)) {
-        [descriptionSection addObject:building.description];
-        [buildingTable addObject:descriptionSection];
+    if (!(self.building.summary == (id)[NSNull null]
+          || self.building.summary.length == 0)) {
+        [descriptionSection addObject:self.building.summary];
+        [self.buildingTable addObject:descriptionSection];
     }
     
     NSMutableArray *hoursSection = [[NSMutableArray alloc] init];
     
-    if (![building.hours isEqual:[NSNull null]] && [building.hours count] > 0) {
-        for (NSDictionary *block in building.hours) {
+    if (![self.building.hours isEqual:[NSNull null]] && [self.building.hours count] > 0) {
+        for (NSDictionary *block in self.building.hours) {
             for (NSString *key in [block allKeys]) {
                 NSString *day = [key stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[key substringToIndex:1] uppercaseString]];
                 [hoursSection addObject:[NSString stringWithFormat:@"%@: %@", day, [[block objectForKey:key] componentsJoinedByString:@", "]]];
             }
         }
-        [buildingTable addObject:hoursSection];
+        [self.buildingTable addObject:hoursSection];
     }
     
     [self.tableView registerClass:[AutoTableViewCell class] forCellReuseIdentifier:cellIdentifier];
@@ -78,6 +66,20 @@ static NSString *cellIdentifier = @"AutoTableViewCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+    @try {
+        blurView = [JCRBlurView new];
+        [blurView setFrame:CGRectMake(0,
+                                           self.bottomBlur.frame.origin.y,
+                                           self.view.frame.size.width,
+                                           50)];
+        blurView.alpha = 0.95;
+        [self.detailView insertSubview:blurView belowSubview:self.bottomBlur];
+        [self.view bringSubviewToFront:self.name];
+    }
+    @catch (NSException * e) {
+        NSLog(@"Exception: %@", e);
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -90,16 +92,17 @@ static NSString *cellIdentifier = @"AutoTableViewCell";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [buildingTable count];
+    return [self.buildingTable count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [[buildingTable objectAtIndex:section] count];
+    return [[self.buildingTable objectAtIndex:section] count];
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)sectionIndex {
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)sectionIndex
+{
     if (sectionIndex == 0) {
         return @"About";
     } else if(sectionIndex == 1) {
@@ -119,7 +122,7 @@ static NSString *cellIdentifier = @"AutoTableViewCell";
     }
     [cell updateFonts];
     
-    cell.bodyLabel.text = (NSString *)[[buildingTable objectAtIndex: indexPath.section] objectAtIndex:indexPath.row];
+    cell.bodyLabel.text = (NSString *)[[self.buildingTable objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     
     [cell setNeedsUpdateConstraints];
     [cell updateConstraintsIfNeeded];
@@ -139,7 +142,7 @@ static NSString *cellIdentifier = @"AutoTableViewCell";
     
     // Configure the cell for this indexPath
     [cell updateFonts];
-    cell.bodyLabel.text = (NSString *)[[buildingTable objectAtIndex: indexPath.section] objectAtIndex:indexPath.row];
+    cell.bodyLabel.text = (NSString *)[[self.buildingTable objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     
     // Make sure the constraints have been added to this cell, since it may have just been created from scratch
     [cell setNeedsUpdateConstraints];

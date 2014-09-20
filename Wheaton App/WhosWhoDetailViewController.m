@@ -17,41 +17,29 @@
     UIImageView *imageHolder;
     UIBarButtonItem *winkButton;
     Mixpanel *mixpanel;
+    
+    JCRBlurView *blurView;
 }
-
-@synthesize person, name, classification, email, cpo, profileImage, bottomBlur, image, blurView;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    name.text = [person fullNameWithPref];
-    email.text = person.email;
-    classification.text = person.classification;
-    cpo.text = [NSString stringWithFormat:@"CPO: %@", person.cpo];
+    self.name.text = [self.person fullNameWithPref];
+    self.email.text = self.person.email;
+    self.classification.text = self.person.classification;
+    self.cpo.text = [NSString stringWithFormat:@"CPO: %@", self.person.cpo];
     
-    profileImage.contentMode = UIViewContentModeTop;
+    self.profileImage.contentMode = UIViewContentModeTop;
     
     mixpanel = [Mixpanel sharedInstance];
-    
-    @try {
-        blurView = [JCRBlurView new];
-        [blurView setFrame:CGRectMake(0,
-                                      self.view.frame.size.height-190,
-                                      320,
-                                      100)];
-        [self.view insertSubview:blurView belowSubview:(UIView *)bottomBlur];
-    }
-    @catch (NSException * e) {
-        NSLog(@"Exception: %@", e);
-    }
     
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
     tapGesture.numberOfTapsRequired = 2;
     [self.view addGestureRecognizer:tapGesture];
     
-    if ([Banner hasLoggedIn] && ![[Banner getSchoolID] isEqualToString:person.uid]) {
+    if ([Banner hasLoggedIn] && ![[Banner getSchoolID] isEqualToString:self.person.uid]) {
         [self displayWink];
     }
 }
@@ -60,25 +48,41 @@
 {
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [super viewWillAppear:NO];
+    
+    @try {
+        if (!blurView) {
+            blurView = [JCRBlurView new];
+            [blurView setFrame:CGRectMake(0,
+                                          self.view.frame.size.height-150,
+                                          self.view.frame.size.width,
+                                          100)];
+            [self.view insertSubview:blurView belowSubview:(UIView *)self.bottomBlur];
+        }
+    }
+    @catch (NSException * e) {
+        NSLog(@"Exception: %@", e);
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:NO];
     
-    [mixpanel track:@"Whos Who" properties:@{ @"query": person.fullName }];
+    [mixpanel track:@"Whos Who" properties:@{ @"query": self.person.fullName }];
     
-    NSString *imagename = person.photo;
+    NSString *imagename = self.person.photo;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        image = [UIImage imageWithData: [NSData dataWithContentsOfURL: [NSURL URLWithString: imagename]]];
+        self.image = [UIImage imageWithData: [NSData dataWithContentsOfURL: [NSURL URLWithString: imagename]]];
         if (self.view.frame.size.height < 400) {
-            image = [image scaleToWidth:320.0 constraint:self.view.frame.size.height-50];
+            self.image = [self.image scaleToWidth:self.view.frame.size.width
+                                       constraint:self.view.frame.size.height-50];
         } else {
-            image = [image scaleToWidth:320.0 constraint:self.view.frame.size.height];
+            self.image = [self.image scaleToWidth:self.view.frame.size.width
+                                  constraint:self.view.frame.size.height];
         }
-        if (image) {
+        if (self.image) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                profileImage.image = image;
+                self.profileImage.image = self.image;
             });
         }
     });
@@ -88,7 +92,7 @@
 {
     if (sender.state == UIGestureRecognizerStateRecognized) {
         if ([Banner hasLoggedIn]) {
-            if(![[Banner getSchoolID] isEqualToString:person.uid]) {
+            if(![[Banner getSchoolID] isEqualToString:self.person.uid]) {
                 [self setFavorite];
                 [self displayWink];
                 [self animateWink];
@@ -153,11 +157,11 @@
     }
     
     if ([self inFavorites]) {
-        [favorites removeObject:person.uid];
+        [favorites removeObject:self.person.uid];
     } else {
         if ([favorites count] < 10) {
-            [favorites addObject:person.uid];
-            [mixpanel track:@"Wink" properties:@{ @"student": person.fullName }];
+            [favorites addObject:self.person.uid];
+            [mixpanel track:@"Wink" properties:@{ @"student": self.person.fullName }];
         } else {
             [self alertMessage:@"Wink" message:@"There is a limit to the number of winks you can use." button:@"Darn it"];
         }
@@ -182,7 +186,7 @@
     NSArray *favorites = [[NSUserDefaults standardUserDefaults] objectForKey:@"favorites"];
     if (favorites) {
         for (NSString *uid in favorites) {
-            if ([uid isEqualToString:person.uid]) {
+            if ([uid isEqualToString:self.person.uid]) {
                 return YES;
             }
         }

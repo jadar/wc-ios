@@ -10,29 +10,29 @@
 	<string>Wheaton App</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>54000873-3867-48D6-A5F3-31806A8B526A</key>
+		<key>E6A5879F170894053CCC09FAF0D07AC5538B460F</key>
 		<string>https://github.com/pushchris/wc-ios.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Wheaton App.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>54000873-3867-48D6-A5F3-31806A8B526A</key>
+		<key>E6A5879F170894053CCC09FAF0D07AC5538B460F</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/pushchris/wc-ios.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>54000873-3867-48D6-A5F3-31806A8B526A</string>
+	<string>E6A5879F170894053CCC09FAF0D07AC5538B460F</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>54000873-3867-48D6-A5F3-31806A8B526A</string>
+			<string>E6A5879F170894053CCC09FAF0D07AC5538B460F</string>
 			<key>IDESourceControlWCCName</key>
 			<string>wc-ios</string>
 		</dict>

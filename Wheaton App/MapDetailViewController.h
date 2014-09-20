@@ -16,7 +16,6 @@
 @property (strong, nonatomic) IBOutlet UIView *detailView;
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView *buildingImage;
 @property (strong, nonatomic) IBOutlet UIView *bottomBlur;
-@property (strong, nonatomic) JCRBlurView *blurView;
 
 @property (strong, nonatomic) Location *building;
 @property (strong, nonatomic) NSMutableArray *buildingTable;

@@ -14,38 +14,36 @@
 
 @implementation WebViewController
 
-@synthesize webView, activityView, url, allowZoom, allowResize, refresh;
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     self.activityView.hidesWhenStopped = YES;
 
-    NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-    if (allowZoom == YES) {
-        [webView setScalesPageToFit:YES];
+    NSURLRequest *requestObj = [NSURLRequest requestWithURL:self.url];
+    if (self.allowZoom == YES) {
+        [self.webView setScalesPageToFit:YES];
     }
     
-    [webView loadRequest:requestObj];
+    [self.webView loadRequest:requestObj];
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-    [activityView startAnimating];
+    [self.activityView startAnimating];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webview
 {
     if (webview.isLoading)
         return;
-    [activityView stopAnimating];
+    [self.activityView stopAnimating];
 }
 
 - (void)viewDidLayoutSubviews
 {
-    if (allowResize != NO) {
-        webView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    if (self.allowResize != NO) {
+        self.webView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     }
 }
 

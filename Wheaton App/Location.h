@@ -12,7 +12,7 @@
 @interface Location : NSObject <MKAnnotation>
 
 @property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *description;
+@property (nonatomic, copy) NSString *summary;
 @property (nonatomic, copy) NSString *image;
 @property (nonatomic, copy) NSString *type;
 @property (nonatomic, copy) NSArray *hours;

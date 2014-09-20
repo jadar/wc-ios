@@ -175,9 +175,9 @@
             if (![[[dic objectForKey:@"image"] objectForKey:@"url"] isEqual:[NSNull null]]) {
                 annotation.image = [[[dic objectForKey:@"image"] objectForKey:@"url"] objectForKey:@"medium"];
             }
-            annotation.description = @"Blank";
+            annotation.summary = @"Blank";
             if (![[dic objectForKey:@"description"] isEqual:[NSNull null]]) {
-                annotation.description = [dic objectForKey:@"description"];
+                annotation.summary = [dic objectForKey:@"description"];
             }
             annotation.type = [dic objectForKey:@"type"];
             annotation.hours = [dic objectForKey:@"hours"];

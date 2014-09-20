@@ -37,13 +37,13 @@ DEPENDENCIES:
   - UIView+AutoLayout
 
 SPEC CHECKSUMS:
-  AFNetworking: e8cfd8f3fe3bfe19124a0cc63f4d45752d892a56
-  GoogleAnalytics-iOS-SDK: 4f77f2cce5216e590343ce0b75ac491aa249ca89
-  iOS-blur: 2610bc818831fa4eec051a7193e47639d480fb32
-  LVDebounce: 70385cb1a3c2fba8382fd943ac1230aa9b399f91
-  Mixpanel: 16e6f1d5f8aeb9282ee864e169557de0bd9549df
-  Reachability: be4883bb93f31e38266ae3365e5600a317aae735
-  TEAChart: a7ded6e5be2cfb260ea27e1384806b4ab6f694dc
-  UIView+AutoLayout: 43373a18797954fd8ee3b1423af364f1b80a2af8
+  AFNetworking: 5f2538aa2d150b71d4e6cca3a420d796e1e1c374
+  GoogleAnalytics-iOS-SDK: 4577fb25381a71c5beac455b18ebb288fc4f44e9
+  iOS-blur: 5ec57b4a72e57a4f8f5f47ff3f59e56c0690b761
+  LVDebounce: 697df869ab4b11a543844acab021def0e1364d83
+  Mixpanel: f80261f894ae0a71231da2a7eed67ce9ba1d5a26
+  Reachability: 8e9635e3cb4f98e7f825e51147f677ecc694d0e7
+  TEAChart: 6bfe728888b6c2ea58b22f75121d9ce2687729e2
+  UIView+AutoLayout: dc24ec6114498617510af759148a05b957af1b38
 
-COCOAPODS: 0.29.0
+COCOAPODS: 0.33.1

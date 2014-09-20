@@ -140,7 +140,8 @@
     return [[[moreTable objectAtIndex:section] objectForKey:@"array"] count];
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)sectionIndex {
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)sectionIndex
+{
     NSDictionary *entry = [moreTable objectAtIndex:sectionIndex];
     
     return [entry objectForKey:@"header"];
@@ -162,7 +163,8 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSDictionary *dic = [[[moreTable objectAtIndex:indexPath.section]
                           objectForKey:@"array"]
