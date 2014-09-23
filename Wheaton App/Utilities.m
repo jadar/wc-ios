@@ -10,4 +10,19 @@
 
 @implementation Utilities
 
++ (BOOL)enabledNotifications
+{
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(isRegisteredForRemoteNotifications)])
+    {
+        return [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
+    } else {
+        UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+        if (types) {
+            return YES;
+        } else {
+            return NO;
+        }
+    }
+}
+
 @end

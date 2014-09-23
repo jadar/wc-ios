@@ -53,8 +53,7 @@
     [chapelOption setValue:cVC forKey:@"controller"];
     [optionsArray addObject:chapelOption];
     
-    UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
-    if (types != UIRemoteNotificationTypeNone) {
+    if ([Utilities enabledNotifications]) {
         NSMutableDictionary *notificationOption = [[NSMutableDictionary alloc] init];
         UIViewController *nVC = [self.storyboard instantiateViewControllerWithIdentifier:@"NotificationOptions"];
         nVC.title = @"Notification Toggles";
@@ -66,7 +65,7 @@
     [optionsDictionary setObject:optionsArray forKey:@"array"];
     [moreTable addObject:optionsDictionary];
     
-    if (types != UIRemoteNotificationTypeNone) {
+    if ([Utilities enabledNotifications]) {
         NSMutableDictionary *bannerDictionary = [[NSMutableDictionary alloc] init];
         NSMutableArray *bannerArray = [[NSMutableArray alloc] init];
         

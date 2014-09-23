@@ -37,13 +37,21 @@
     
     NSMutableArray *metraSection = [[NSMutableArray alloc] init];
     [home addObject:metraSection];
-    
-    [scrollView loaded:self];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
+    
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    CGSize screenSize = screenBound.size;
+    
+    CGRect frame = scrollView.frame;
+    frame.size.width = screenSize.width;
+    scrollView.frame = frame;
+    
+    [scrollView loaded:self];
     
     [scrollView setDelegate:self];
     [scrollView setScrollEnabled:YES];
@@ -120,7 +128,9 @@
         if([view isKindOfClass:[UITableViewHeaderFooterView class]] && section == 0){
             UITableViewHeaderFooterView *tableViewHeaderFooterView = (UITableViewHeaderFooterView *) view;
             
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake (153, 30, 150, 20)];
+            CGFloat width = self.view.frame.size.width;
+            
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake (width-167.0, 30, 150, 20)];
             [label setFont:[UIFont fontWithName:@"HelveticaNeue" size:13]];
             [label setTextColor:[UIColor colorWithRed:100/255.0f green:100/255.0f blue:100/255.0f alpha:1.0f]];
             [label setTextAlignment:NSTextAlignmentRight];

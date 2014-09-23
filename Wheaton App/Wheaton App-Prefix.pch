@@ -18,6 +18,7 @@
     #import "Mixpanel.h"
     #import "AFNetworking.h"
     #import "Constants.h"
+    #import "Utilities.h"
 #endif
 
 #ifndef DEBUG

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="pgY-OL-D89">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="pgY-OL-D89">
     <dependencies>
         <deployment version="1792" defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
@@ -62,15 +62,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="jS6-fH-S0v" secondAttribute="trailing" constant="-16" id="5Tf-md-6Oe"/>
                             <constraint firstItem="IsI-WR-UH9" firstAttribute="top" secondItem="jS6-fH-S0v" secondAttribute="bottom" id="99p-IQ-X1k"/>
                             <constraint firstAttribute="trailingMargin" secondItem="giX-iX-TMH" secondAttribute="trailing" constant="-16" id="IUN-wA-TYk"/>
                             <constraint firstItem="40h-Ld-7OH" firstAttribute="leading" secondItem="MvZ-Va-giK" secondAttribute="leadingMargin" constant="-16" id="M30-Fy-3gj"/>
                             <constraint firstItem="giX-iX-TMH" firstAttribute="leading" secondItem="MvZ-Va-giK" secondAttribute="leadingMargin" constant="-16" id="YhM-bu-Joy"/>
                             <constraint firstItem="jS6-fH-S0v" firstAttribute="top" secondItem="SZ7-KF-Dua" secondAttribute="bottom" constant="44" id="aBJ-Gc-7us"/>
                             <constraint firstItem="giX-iX-TMH" firstAttribute="top" secondItem="SZ7-KF-Dua" secondAttribute="bottom" id="aoA-b8-fgy"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="jS6-fH-S0v" secondAttribute="trailing" constant="-16" id="biO-TF-WyO"/>
+                            <constraint firstItem="jS6-fH-S0v" firstAttribute="leading" secondItem="MvZ-Va-giK" secondAttribute="leadingMargin" constant="-16" id="kFA-oC-7EO"/>
                             <constraint firstAttribute="trailingMargin" secondItem="40h-Ld-7OH" secondAttribute="trailing" constant="-16" id="pDh-xU-CAL"/>
-                            <constraint firstItem="jS6-fH-S0v" firstAttribute="leading" secondItem="MvZ-Va-giK" secondAttribute="leadingMargin" constant="-16" id="yyo-UQ-DCH"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" image="House.png" id="EPA-YY-fKr"/>
@@ -105,7 +105,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="izN-Uy-pIw">
+                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="izN-Uy-pIw">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
                                     <connections>
                                         <outlet property="delegate" destination="ZDk-j6-Hk6" id="P5t-0X-1Qp"/>
@@ -116,6 +116,10 @@
                                 </pageControl>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="izN-Uy-pIw" secondAttribute="trailing" id="1RQ-92-KTV"/>
+                                <constraint firstItem="izN-Uy-pIw" firstAttribute="leading" secondItem="ZDk-j6-Hk6" secondAttribute="leading" id="rFw-RU-GiX"/>
+                            </constraints>
                             <connections>
                                 <outlet property="pageControl" destination="CqE-8N-tio" id="YSJ-XO-67s"/>
                                 <outlet property="scrollView" destination="izN-Uy-pIw" id="ANL-b3-QPp"/>
@@ -142,7 +146,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ceL-0b-z8E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-376" y="2156"/>
+            <point key="canvasLocation" x="-790" y="2156"/>
         </scene>
         <!--Whos Who Detail View Controller-->
         <scene sceneID="YoE-Yk-e9f">
@@ -923,7 +927,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Q6X-ed-9v1">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Q6X-ed-9v1">
                                                     <rect key="frame" x="10" y="7" width="300" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>

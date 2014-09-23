@@ -10,4 +10,6 @@
 
 @interface Utilities : NSObject
 
++ (BOOL)enabledNotifications;
+
 @end

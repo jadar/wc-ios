@@ -29,6 +29,14 @@
     [scrollView setShowsHorizontalScrollIndicator:NO];
     [scrollView setShowsVerticalScrollIndicator:NO];
     
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    CGSize screenSize = screenBound.size;
+    
+    CGRect frame = scrollView.frame;
+    frame.size.width = screenSize.width;
+    scrollView.frame = frame;
+
+    
     UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedImage:)];
     [self addGestureRecognizer:tapped];
     

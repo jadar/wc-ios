@@ -162,8 +162,7 @@
 
 + (BOOL)hasLoggedIn
 {
-    UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
-    if (types
+    if ([Utilities enabledNotifications]
         && [[NSUserDefaults standardUserDefaults] boolForKey:@"login"]
         && [[NSUserDefaults standardUserDefaults] objectForKey:@"uuid"]
         && [[NSUserDefaults standardUserDefaults] objectForKey:@"token"]) {
@@ -171,6 +170,8 @@
     }
     return NO;
 }
+
+
 
 + (void)logOut
 {

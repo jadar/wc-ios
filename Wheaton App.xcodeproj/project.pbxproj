@@ -19,6 +19,7 @@
 		61032B1917F3324200CC95FA /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61032B1817F3324200CC95FA /* CoreData.framework */; };
 		61032B1B17F3325600CC95FA /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 61032B1A17F3325600CC95FA /* libz.dylib */; };
 		610D48D217DD591F00DE574C /* EventsTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 610D48D117DD591F00DE574C /* EventsTableCell.m */; };
+		610E251519D1CA8B009168AA /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 610E251419D1CA8B009168AA /* Utilities.m */; };
 		612BFEFD17DED11300EB2C8C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 612BFEF517DED11200EB2C8C /* AppDelegate.m */; };
 		612BFF0417DEE71D00EB2C8C /* MapSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 612BFF0317DEE71D00EB2C8C /* MapSearchBar.m */; };
 		613961E718A870E600669034 /* MapDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 613961E618A870E600669034 /* MapDetailViewController.m */; };
@@ -104,6 +105,8 @@
 		61032B1A17F3325600CC95FA /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		610D48D017DD591600DE574C /* EventsTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsTableCell.h; sourceTree = "<group>"; };
 		610D48D117DD591F00DE574C /* EventsTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsTableCell.m; sourceTree = "<group>"; };
+		610E251319D1CA8B009168AA /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		610E251419D1CA8B009168AA /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		612BFEF417DED11200EB2C8C /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		612BFEF517DED11200EB2C8C /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		612BFF0217DEE71D00EB2C8C /* MapSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapSearchBar.h; sourceTree = "<group>"; };
@@ -283,6 +286,8 @@
 				612BFEF417DED11200EB2C8C /* AppDelegate.h */,
 				612BFEF517DED11200EB2C8C /* AppDelegate.m */,
 				61CA40AC17CA702200617623 /* iPhone.storyboard */,
+				610E251319D1CA8B009168AA /* Utilities.h */,
+				610E251419D1CA8B009168AA /* Utilities.m */,
 				61BCE1021885DFF600C7AB12 /* Constants.h */,
 				61BCE1031885E18600C7AB12 /* Constants.m */,
 				61CA409C17CA6C6300617623 /* Controllers */,
@@ -732,6 +737,7 @@
 				61F70D8F1831E03700345907 /* HomeViewController.m in Sources */,
 				61851B3E18306762005EDE18 /* SportsTableViewController.m in Sources */,
 				613B9557183419C900DEAA0E /* EventsTableViewController.m in Sources */,
+				610E251519D1CA8B009168AA /* Utilities.m in Sources */,
 				61E7679318F4F67200E04D54 /* AccountTableViewCell.m in Sources */,
 				61B04AFB18B4605600CC509A /* NotificationOptionsTableViewController.m in Sources */,
 				6147B49418AD531A00110753 /* AutoTableViewCell.m in Sources */,

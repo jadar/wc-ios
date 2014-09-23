@@ -13,6 +13,9 @@
 #define METERS_PER_MILE 1609.344
 
 @implementation MapViewController
+{
+    CLLocationManager *locationManager;
+}
 
 @synthesize locations, searchController;
 
@@ -26,6 +29,10 @@
     
     UITextView *searchTextField = [self.searchDisplayController.searchBar valueForKey:@"_searchField"];
     searchTextField.textColor = [UIColor whiteColor];
+    
+    locationManager = [[CLLocationManager alloc] init];
+    [locationManager requestWhenInUseAuthorization];
+    [locationManager startUpdatingLocation];
     
     [self loadLocations];
     
@@ -213,18 +220,21 @@ shouldReloadTableForSearchString:(NSString *)searchString
 
 
 
-- (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView {
+- (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView
+{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
 
 
-- (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView {
+- (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView
+{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide) name:UIKeyboardWillHideNotification object:nil];
     
 }
 
-- (void) keyboardWillHide {
+- (void)keyboardWillHide
+{
     UITableView *tableView = [[self searchDisplayController] searchResultsTableView];
     
     [tableView setContentInset:UIEdgeInsetsZero];
