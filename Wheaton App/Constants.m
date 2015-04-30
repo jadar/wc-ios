@@ -8,6 +8,7 @@
 
 #import "Constants.h"
 
+
 NSString * const c_Home = @"https://isoncamp.us/wheaton/home";
 NSString * const c_MapLocations = @"https://isoncamp.us/wheaton/locations";
 NSString * const c_Chapel = @"https://isoncamp.us/wheaton/chapel";
@@ -34,4 +35,4 @@ NSString * const c_Academic = @"http://localhost:3000/wheaton/academic";
 NSString * const c_Banners = @"https://s3.amazonaws.com/wcstatic/banners.json";
 NSString * const c_Events = @"http://localhost:3000/wheaton/events";
 NSString * const c_PushOptions = @"https://isoncamp.us/apn";
-*/
+ */

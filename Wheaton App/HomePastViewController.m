@@ -60,40 +60,14 @@
     [self load];
 }
 
+
+
 - (void)load
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    [manager GET:c_Home parameters:@{} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *dic = responseObject;
-        
-        [[home objectAtIndex:0] removeAllObjects];
-        [[home objectAtIndex:1] removeAllObjects];
-        [[home objectAtIndex:2] removeAllObjects];
-        
-        
-        NSArray *chapelArray = [dic objectForKey:@"chapel"];
-        if ([chapelArray count] > 0) {
-            [[home objectAtIndex:0] addObject:[chapelArray objectAtIndex:0]];
-        }
-        
-        NSArray *sportArray = [dic objectForKey:@"sports"];
-        for (NSDictionary *s in sportArray) {
-            Sport *sport = [[Sport alloc] init];
-            [sport jsonToSport:s];
-            [[home objectAtIndex:1] addObject:sport];
-            [self.tableView reloadData];
-        }
-        
-        NSArray *metraArray = [dic objectForKey:@"train"];
-        for (NSDictionary *m in metraArray) {
-            [[home objectAtIndex:2] addObject:m];
-        }
-        
-        [self.tableView reloadData];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSData* data = [NSData dataWithContentsOfURL: [NSURL URLWithString: c_Home]];
+        [self performSelectorOnMainThread:@selector(fetchedData:) withObject:data waitUntilDone:YES];
+    });
     
     [Banner getChapelSkips:^(NSDictionary *attendance) {
         self.chapelSkips = attendance;
@@ -102,6 +76,49 @@
         NSLog(@"Error: %@", error);
     }];
 }
+
+
+- (void)fetchedData:(NSData *)responseData
+{
+    if (responseData == nil) {
+        return;
+    }
+    
+    // parse out the json data
+    NSError *error;
+    NSDictionary *responseObject  = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
+    [self parseResults:(responseObject)];
+}
+
+
+- (void) parseResults:(NSDictionary *)dic{
+    [[home objectAtIndex:0] removeAllObjects];
+    [[home objectAtIndex:1] removeAllObjects];
+    [[home objectAtIndex:2] removeAllObjects];
+    
+    
+    NSArray *chapelArray = [dic objectForKey:@"chapel"];
+    if ([chapelArray count] > 0) {
+        [[home objectAtIndex:0] addObject:[chapelArray objectAtIndex:0]];
+    }
+    
+    NSArray *sportArray = [dic objectForKey:@"sports"];
+    for (NSDictionary *s in sportArray) {
+        Sport *sport = [[Sport alloc] init];
+        [sport jsonToSport:s];
+        [[home objectAtIndex:1] addObject:sport];
+        [self.tableView reloadData];
+    }
+    
+    NSArray *metraArray = [dic objectForKey:@"train"];
+    for (NSDictionary *m in metraArray) {
+        [[home objectAtIndex:2] addObject:m];
+    }
+    
+    [self.tableView reloadData];
+    
+}
+
 
 - (void)didReceiveMemoryWarning
 {

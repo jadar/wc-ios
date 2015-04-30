@@ -38,42 +38,90 @@
 
 - (void)loadSchedule
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSData* data = [NSData dataWithContentsOfURL: [NSURL URLWithString: c_Chapel]];
+        [self performSelectorOnMainThread:@selector(fetchedData:) withObject:data waitUntilDone:YES];
+    });
     
-    [manager GET:c_Chapel parameters:@{@"limit":@"100"} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *eventsArray = responseObject;
+    
+    /*
+     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+     
+     [manager GET:c_Chapel parameters:@{@"limit":@"100"} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+     NSArray *eventsArray = responseObject;
+     
+     for(NSDictionary *entry in eventsArray) {
+     NSDate *entryDate = [NSDate dateWithTimeIntervalSince1970:
+     [[[entry objectForKey:@"timeStamp"] objectAtIndex:0] doubleValue]];
+     
+     NSDateComponents *components = [cal components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit
+     fromDate:entryDate];
+     
+     Boolean found = NO;
+     for(NSMutableDictionary *category in schedule) {
+     if([[category objectForKey:@"year"] intValue] == [components year]
+     && [[category objectForKey:@"month"] intValue] == [components month]) {
+     NSMutableArray *events = [category objectForKey:@"events"];
+     [events addObject:entry];
+     found = YES;
+     }
+     }
+     if(found == NO) {
+     NSMutableDictionary *category = [[NSMutableDictionary alloc] init];
+     [category setObject:[NSString stringWithFormat:@"%ld", (long)[components year]] forKey:@"year"];
+     [category setObject:[NSString stringWithFormat:@"%ld", (long)[components month]] forKey:@"month"];
+     NSMutableArray *events = [[NSMutableArray alloc] init];
+     [events addObject:entry];
+     [category setObject:events forKey:@"events"];
+     [schedule addObject:category];
+     }
+     }
+     [self.tableView reloadData];
+     [self moveToCorrectRow];
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+     NSLog(@"Error: %@", error);
+     }];
+     */
+}
+
+- (void)fetchedData:(NSData *)responseData
+{
+    if (responseData == nil) {
+        return;
+    }
+    
+    // parse out the json data
+    NSError *error;
+    NSArray *eventsArray  = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
+    
+    for(NSDictionary *entry in eventsArray) {
+        NSDate *entryDate = [NSDate dateWithTimeIntervalSince1970:
+                             [[[entry objectForKey:@"timeStamp"] objectAtIndex:0] doubleValue]];
         
-        for(NSDictionary *entry in eventsArray) {
-            NSDate *entryDate = [NSDate dateWithTimeIntervalSince1970:
-                                 [[[entry objectForKey:@"timeStamp"] objectAtIndex:0] doubleValue]];
-            
-            NSDateComponents *components = [cal components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit
-                                                  fromDate:entryDate];
-            
-            Boolean found = NO;
-            for(NSMutableDictionary *category in schedule) {
-                if([[category objectForKey:@"year"] intValue] == [components year]
-                   && [[category objectForKey:@"month"] intValue] == [components month]) {
-                    NSMutableArray *events = [category objectForKey:@"events"];
-                    [events addObject:entry];
-                    found = YES;
-                }
-            }
-            if(found == NO) {
-                NSMutableDictionary *category = [[NSMutableDictionary alloc] init];
-                [category setObject:[NSString stringWithFormat:@"%ld", (long)[components year]] forKey:@"year"];
-                [category setObject:[NSString stringWithFormat:@"%ld", (long)[components month]] forKey:@"month"];
-                NSMutableArray *events = [[NSMutableArray alloc] init];
+        NSDateComponents *components = [cal components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit
+                                              fromDate:entryDate];
+        
+        Boolean found = NO;
+        for(NSMutableDictionary *category in schedule) {
+            if([[category objectForKey:@"year"] intValue] == [components year]
+               && [[category objectForKey:@"month"] intValue] == [components month]) {
+                NSMutableArray *events = [category objectForKey:@"events"];
                 [events addObject:entry];
-                [category setObject:events forKey:@"events"];
-                [schedule addObject:category];
+                found = YES;
             }
         }
-        [self.tableView reloadData];
-        [self moveToCorrectRow];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
+        if(found == NO) {
+            NSMutableDictionary *category = [[NSMutableDictionary alloc] init];
+            [category setObject:[NSString stringWithFormat:@"%ld", (long)[components year]] forKey:@"year"];
+            [category setObject:[NSString stringWithFormat:@"%ld", (long)[components month]] forKey:@"month"];
+            NSMutableArray *events = [[NSMutableArray alloc] init];
+            [events addObject:entry];
+            [category setObject:events forKey:@"events"];
+            [schedule addObject:category];
+        }
+    }
+    
+    [self.tableView reloadData];
 }
 
 - (void)refreshView:(UIRefreshControl *)sender {
@@ -181,7 +229,7 @@
     [self.tableView scrollToRowAtIndexPath:indexPath
                           atScrollPosition:UITableViewScrollPositionTop
                                   animated:NO];
-
+    
 }
 
 @end

@@ -24,7 +24,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    scrollView.contentSize = CGSizeMake(self.view.frame.size.width, 800);
+    scrollView.contentSize = CGSizeMake(self.view.frame.size.width, 800 + self.view.frame.size.width/2);
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)sender

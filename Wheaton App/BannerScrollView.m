@@ -22,7 +22,7 @@
 {
     parentController = parent;
     [scrollView setTag:1];
-    [scrollView setAutoresizingMask:UIViewAutoresizingNone];
+    [scrollView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [pageControl setTag:12];
     [pageControl setAutoresizingMask:UIViewAutoresizingNone];
     [scrollView setPagingEnabled:YES];
@@ -34,7 +34,10 @@
     
     CGRect frame = scrollView.frame;
     frame.size.width = screenSize.width;
+    frame.size.height = (screenSize.width / 2);
     scrollView.frame = frame;
+    
+    self.frame = CGRectMake(0, 0, screenSize.width, (screenSize.width / 2));
 
     
     UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedImage:)];
