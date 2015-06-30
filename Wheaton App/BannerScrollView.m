@@ -16,10 +16,30 @@
     UIViewController *parentController;
 }
 
-@synthesize scrollView, pageControl;
+@synthesize scrollView, pageControl,scrollTimer;
+
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        scrollView = [[UIScrollView alloc] initWithFrame:self.frame];
+        [scrollView setDelegate:self];
+        [self addSubview:scrollView];
+        
+        pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 20, self.frame.size.width, 20)];
+        [self addSubview:pageControl];
+        
+        NSLog([NSString stringWithFormat:@"w: %f h: %f", frame.size.width,frame.size.height]);
+        //self.backgroundColor = [UIColor whiteColor];
+    }
+    return self;
+}
 
 - (void)loaded:(UIViewController *)parent
 {
+    
+    
     parentController = parent;
     [scrollView setTag:1];
     [scrollView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
@@ -28,17 +48,6 @@
     [scrollView setPagingEnabled:YES];
     [scrollView setShowsHorizontalScrollIndicator:NO];
     [scrollView setShowsVerticalScrollIndicator:NO];
-    
-    CGRect screenBound = [[UIScreen mainScreen] bounds];
-    CGSize screenSize = screenBound.size;
-    
-    CGRect frame = scrollView.frame;
-    frame.size.width = screenSize.width;
-    frame.size.height = (screenSize.width / 2);
-    scrollView.frame = frame;
-    
-    self.frame = CGRectMake(0, 0, screenSize.width, (screenSize.width / 2));
-
     
     UITapGestureRecognizer *tapped = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedImage:)];
     [self addGestureRecognizer:tapped];
@@ -109,7 +118,8 @@
 {
     [pageControl setNumberOfPages:totalPages];
     [scrollView setContentSize:CGSizeMake(scrollView.frame.size.width * totalPages, scrollView.frame.size.height)];
-    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(scrollingTimer) userInfo:nil repeats:YES];
+    scrollTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(scrollingTimer) userInfo:nil repeats:YES];
+
 }
 
 - (void)scrollingTimer
@@ -140,7 +150,7 @@
     // Update the page when more than 50% of the previous/next page is visible
     CGFloat pageWidth = self.scrollView.frame.size.width;
     int page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-    self.pageControl.currentPage = page;
+    pageControl.currentPage = page;
 }
 
 

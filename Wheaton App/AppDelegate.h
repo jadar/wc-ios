@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "Constants.h"
+#import "Wheaton_App-Swift.h"
+
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, MixpanelDelegate>
 

@@ -79,6 +79,8 @@
 		61F70D8C183196B200345907 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F70D8B183196B200345907 /* MapViewController.m */; };
 		61F70D8F1831E03700345907 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F70D8E1831E03700345907 /* HomeViewController.m */; };
 		61F70D921831F12700345907 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F70D911831F12700345907 /* Person.m */; };
+		6D2A5FD51B41F8CD00CD3285 /* chapelNEW.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 6D2A5FD41B41F8CD00CD3285 /* chapelNEW.pdf */; };
+		6D61D8CC1B3B89D800378994 /* SMoreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D61D8CB1B3B89D800378994 /* SMoreTableViewController.swift */; };
 		CCF1BF0EAA79491DB3D20327 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E273835E92EF424EA47D036B /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -208,6 +210,9 @@
 		61F70D8E1831E03700345907 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		61F70D901831F12700345907 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		61F70D911831F12700345907 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
+		6D2A5FD41B41F8CD00CD3285 /* chapelNEW.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = chapelNEW.pdf; sourceTree = "<group>"; };
+		6D2A5FD61B41F95900CD3285 /* Wheaton App-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Wheaton App-Bridging-Header.h"; sourceTree = "<group>"; };
+		6D61D8CB1B3B89D800378994 /* SMoreTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMoreTableViewController.swift; sourceTree = "<group>"; };
 		8488F3B27992B7FC65559241 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		CE368ECDC5DCD333A3D29340 /* Pods.distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.distribution.xcconfig; path = "Pods/Target Support Files/Pods/Pods.distribution.xcconfig"; sourceTree = "<group>"; };
 		E273835E92EF424EA47D036B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -302,6 +307,7 @@
 		2D2653E313E069CF00DE089C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6D2A5FD41B41F8CD00CD3285 /* chapelNEW.pdf */,
 				613E6CF418E4BF5F00445FFE /* Media.xcassets */,
 				61BCE0FC1883A5E600C7AB12 /* chapel.pdf */,
 				2DCEB34413E2010A00787E39 /* LinksList.plist */,
@@ -457,6 +463,7 @@
 		613E6CF318E4BF3600445FFE /* More */ = {
 			isa = PBXGroup;
 			children = (
+				6D61D8CB1B3B89D800378994 /* SMoreTableViewController.swift */,
 				61F70D841831924100345907 /* MoreTableViewController.h */,
 				61F70D851831924100345907 /* MoreTableViewController.m */,
 				61B04AF918B4605600CC509A /* NotificationOptionsTableViewController.h */,
@@ -532,6 +539,7 @@
 				613E6CF318E4BF3600445FFE /* More */,
 				61891CCF182C09EE003F1B43 /* MasterTabViewController.h */,
 				61891CD0182C09EE003F1B43 /* MasterTabViewController.m */,
+				6D2A5FD61B41F95900CD3285 /* Wheaton App-Bridging-Header.h */,
 				61C6193A18B29F8B00357869 /* UIImage_Scale.h */,
 			);
 			name = Controllers;
@@ -654,6 +662,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D2A5FD51B41F8CD00CD3285 /* chapelNEW.pdf in Resources */,
 				2D2653E713E069CF00DE089C /* InfoPlist.strings in Resources */,
 				2DCEB34513E2010A00787E39 /* LinksList.plist in Resources */,
 				61CA40AD17CA702200617623 /* iPhone.storyboard in Resources */,
@@ -755,6 +764,7 @@
 				6147B49418AD531A00110753 /* AutoTableViewCell.m in Sources */,
 				612BFF0417DEE71D00EB2C8C /* MapSearchBar.m in Sources */,
 				61BCE1041885E18600C7AB12 /* Constants.m in Sources */,
+				6D61D8CC1B3B89D800378994 /* SMoreTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -828,11 +838,13 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/**",
@@ -844,10 +856,13 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Wheaton App/Wheaton App-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/**";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Wheaton App/Wheaton App-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -860,11 +875,13 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				DEFINES_MODULE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/**",
@@ -874,10 +891,12 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Wheaton App/Wheaton App-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/**";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Wheaton App/Wheaton App-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -910,11 +929,13 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				DEFINES_MODULE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -924,10 +945,12 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Wheaton App/Wheaton App-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/**";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Wheaton App/Wheaton App-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;

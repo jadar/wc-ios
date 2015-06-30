@@ -44,19 +44,23 @@
 {
     [super viewWillAppear:YES];
     
-    CGRect screenBound = [[UIScreen mainScreen] bounds];
-    CGSize screenSize = screenBound.size;
+    UIScreen *scrn = [UIScreen mainScreen];
+    CGFloat scl = 1.5;
+    CGFloat myWidth = scrn.bounds.size.width;
+    CGFloat myHeight = myWidth/2;
+    myHeight = myHeight / scl;
+    myWidth = myWidth / scl;
+
     
-    CGRect frame = scrollView.frame;
-    frame.size.width = screenSize.width;
-    scrollView.frame = frame;
-    
+    scrollView =[[BannerScrollView alloc] initWithFrame:CGRectMake(0, 0, myWidth, myHeight)];
+    [self.tableView addSubview:scrollView];
+    [self.tableView setTableHeaderView:scrollView];
     [scrollView loaded:self];
     
     [scrollView setDelegate:self];
     [scrollView setScrollEnabled:YES];
-    [scrollView setAutoresizingMask:UIViewAutoresizingNone];
-    
+    [scrollView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
+
     [self load];
 }
 
@@ -250,8 +254,8 @@
             eventCell = [nib objectAtIndex:0];
         }
         
-        eventCell.origin.text = [inbound objectForKey:@"origin"];
-        eventCell.destination.text = [inbound objectForKey:@"destination"];
+        eventCell.origin.text = [NSString stringWithFormat:@"to %@", [inbound objectForKey:@"origin"]];
+        eventCell.destination.text =  [NSString stringWithFormat: @"to %@", [inbound objectForKey:@"destination"]];
         
         eventCell.departureTimeInbound.text = [inbound objectForKey:@"departure"];
         eventCell.departureTimeOutbound.text = [outbound objectForKey:@"departure"];

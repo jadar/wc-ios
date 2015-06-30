@@ -10,8 +10,9 @@
 
 @interface BannerScrollView : UIScrollView <UIScrollViewDelegate, UIAlertViewDelegate>
 
-@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (strong, nonatomic) UIScrollView *scrollView;
+@property (strong, nonatomic) UIPageControl *pageControl;
+@property (nonatomic, retain) NSTimer *scrollTimer;
 
 - (void)loaded:(UIViewController *)parent;
 
