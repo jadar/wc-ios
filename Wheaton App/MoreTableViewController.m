@@ -9,6 +9,8 @@
 #import "MoreTableViewController.h"
 #import "WebViewController.h"
 #import "Banner.h"
+#import "Wheaton_App-Swift.h"
+
 
 @interface MoreTableViewController ()
 
@@ -45,6 +47,7 @@
     
     [optionsDictionary setObject:@"Extra" forKey:@"header"];
     
+    
     NSMutableDictionary *chapelOption = [[NSMutableDictionary alloc] init];
     WebViewController *cVC = [self.storyboard instantiateViewControllerWithIdentifier:@"WebView"];
     cVC.allowZoom = YES;
@@ -52,6 +55,16 @@
     [chapelOption setValue:@"Chapel Seat Layout" forKey:@"name"];
     [chapelOption setValue:cVC forKey:@"controller"];
     [optionsArray addObject:chapelOption];
+    
+    
+    
+    NSMutableDictionary *recordOption = [[NSMutableDictionary alloc] init];
+    RecordArticlesViewController *theRecord = [[RecordArticlesViewController alloc] init];
+    [recordOption setValue:@"The Record" forKey:@"name"];
+    [recordOption setValue:theRecord forKey:@"controller"];
+    [optionsArray addObject:recordOption];
+    
+    
     
     if ([Utilities enabledNotifications]) {
         NSMutableDictionary *notificationOption = [[NSMutableDictionary alloc] init];
@@ -156,6 +169,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.textLabel.text = [[array objectAtIndex:indexPath.row] objectForKey:@"name"];
     // Configure the cell...
     

@@ -45,21 +45,16 @@
     [super viewWillAppear:YES];
     
     UIScreen *scrn = [UIScreen mainScreen];
-    CGFloat scl = 1.5;
     CGFloat myWidth = scrn.bounds.size.width;
-    CGFloat myHeight = myWidth/2;
-    myHeight = myHeight / scl;
-    myWidth = myWidth / scl;
-
     
-    scrollView =[[BannerScrollView alloc] initWithFrame:CGRectMake(0, 0, myWidth, myHeight)];
+    scrollView =[[BannerScrollView alloc] initWithFrame:CGRectMake(0, 0, myWidth, myWidth/2)];
     [self.tableView addSubview:scrollView];
     [self.tableView setTableHeaderView:scrollView];
     [scrollView loaded:self];
     
     [scrollView setDelegate:self];
     [scrollView setScrollEnabled:YES];
-    [scrollView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
+    [scrollView setAutoresizingMask:UIViewAutoresizingNone];
 
     [self load];
 }

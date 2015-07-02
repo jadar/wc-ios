@@ -28,21 +28,22 @@
         [self addSubview:scrollView];
         
         pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 20, self.frame.size.width, 20)];
+        pageControl.autoresizingMask = UIViewContentModeCenter;
+        
         [self addSubview:pageControl];
         
-        NSLog([NSString stringWithFormat:@"w: %f h: %f", frame.size.width,frame.size.height]);
-        //self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor whiteColor];
     }
     return self;
 }
 
+
 - (void)loaded:(UIViewController *)parent
 {
     
-    
     parentController = parent;
     [scrollView setTag:1];
-    [scrollView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [scrollView setAutoresizingMask:UIViewAutoresizingNone];
     [pageControl setTag:12];
     [pageControl setAutoresizingMask:UIViewAutoresizingNone];
     [scrollView setPagingEnabled:YES];

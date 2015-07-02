@@ -31,7 +31,7 @@
     searchTextField.textColor = [UIColor whiteColor];
     
     locationManager = [[CLLocationManager alloc] init];
-    [locationManager requestWhenInUseAuthorization];
+    //[locationManager requestWhenInUseAuthorization];
     CLAuthorizationStatus authorizationStatus= [CLLocationManager authorizationStatus];
     if (authorizationStatus == kCLAuthorizationStatusAuthorized ||
         authorizationStatus == kCLAuthorizationStatusAuthorizedAlways ||

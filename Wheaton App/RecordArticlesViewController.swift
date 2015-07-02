@@ -1,27 +1,26 @@
 //
-//  MoreTableViewController.swift
+//  RecordArticlesViewController.swift
 //  Wheaton App
 //
-//  Created by Jack Work on 6/24/15.
+//  Created by Jack Work on 7/1/15.
 //
 //
 
 import UIKit
 
-class SMoreTableViewController: UITableViewController {
-    
-    var moreTableArray: NSMutableArray = []
+class RecordArticlesViewController: UITableViewController, XMLParserDelegate {
 
+    var xmlParser : XMLParser!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.automaticallyAdjustsScrollViewInsets = false
-        self.navigationController?.navigationBar.translucent = false
-        moreTableArray = NSMutableArray()
         
-        moreTableArray = ["Chapel Seat Layout"]
-        //self.generateTable()
-        
+        //self.tableView.registerClass(TableCell, forHeaderFooterViewReuseIdentifier: <#String#>)
+        //[self.tableView registerClass:[TableCell class] forCellReuseIdentifier:CellIdentifier]
+        let url = NSURL(string: "http://feeds.feedburner.com/appcoda")
+        xmlParser = XMLParser()
+        xmlParser.delegate = self
+        xmlParser.startParsingWithContentsOfURL(url!)
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -29,58 +28,38 @@ class SMoreTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
+    
+    
+    
+    // MARK: XMLParserDelegate method implementation
+    
+    func parsingWasFinished() {
+        self.tableView.reloadData()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
-    
-    private func generateTable(){
-        var optionsDictionary:Dictionary<String,AnyObject> = ["Extra":"header"]
-        var sm:String = "asdf"
-        var chapelOptionDict:Dictionary = ["Chapel Seat Layout":"name",
-            sm:"controller"]
-        
-        var optionsArray:Array = [chapelOptionDict]
-        optionsDictionary["array"] = optionsArray
-        moreTableArray.addObject(optionsDictionary)
-        
-        tableView.reloadData()
-    }
-    
-    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return moreTableArray.count
+        return 1
     }
-
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return moreTableArray.objectAtIndex(section).objectForKey("array")!.count
-        return 1;
+        return xmlParser.arrParsedData.count
     }
 
-    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        //let array: Array<NSDictionary> = moreTableArray.objectAtIndex(indexPath.section).objectForKey("array") as AnyObject! as! Array<NSDictionary>
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
-        //var cell:UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("cell") as! UITableViewCell
         
-        //let dict:NSDictionary = array[indexPath.row]
-        //let text:String = dict["name"] as! String
-        cell.textLabel?.text = moreTableArray[indexPath.row] as! String
+        var cell:UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("recordID") as! UITableViewCell
+        let currentDictionary = xmlParser.arrParsedData[indexPath.row] as Dictionary<String, String>
 
+        cell.textLabel!.text = currentDictionary["title"]
+        
         return cell
-    }
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        //self.performSegueWithIdentifier("candyDetail", sender: tableView)
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
     }
 
     /*
