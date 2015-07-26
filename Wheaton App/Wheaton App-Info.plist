@@ -53,5 +53,10 @@
 	<false/>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Your location will be used to display your position on campus.</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 </dict>
 </plist>
