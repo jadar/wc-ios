@@ -25,7 +25,6 @@
     [super viewDidLoad];
     
     barHidden = NO;
-    self.screenName = @"Map";
     
     UITextView *searchTextField = [self.searchDisplayController.searchBar valueForKey:@"_searchField"];
     searchTextField.textColor = [UIColor whiteColor];

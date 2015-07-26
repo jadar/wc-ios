@@ -43,10 +43,12 @@ class XMLParser: NSObject, NSXMLParserDelegate {
     }
     
     
-    func parser(parser: NSXMLParser, didStartElement elementName: String!, namespaceURI: String!, qualifiedName qName: String!, attributes attributeDict: [NSObject : AnyObject]) {
-        
+    func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
         currentElement = elementName
+
     }
+    
+    
     
     
     func parser(parser: NSXMLParser, didEndElement elementName: String!, namespaceURI: String!, qualifiedName qName: String!) {
@@ -75,12 +77,12 @@ class XMLParser: NSObject, NSXMLParserDelegate {
     
     
     func parser(parser: NSXMLParser, parseErrorOccurred parseError: NSError!) {
-        println(parseError.description)
+        print(parseError.description)
     }
     
     
     func parser(parser: NSXMLParser, validationErrorOccurred validationError: NSError!) {
-        println(validationError.description)
+        print(validationError.description)
     }
     
 }

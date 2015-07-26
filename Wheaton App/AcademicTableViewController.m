@@ -47,9 +47,22 @@
     NSError *error;
     NSArray *eventsArray = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
     
+    NSMutableArray *trimmedArray = [[NSMutableArray alloc] init];
+    int realcount = 0;
+    
+    for(int i = 0; i < eventsArray.count - 1; i++) {
+        NSString *title1 =[[eventsArray[i] objectForKey:@"title"] stringByReplacingOccurrencesOfString:@" " withString:@""];
+        NSString *title2 =[[eventsArray[i+1] objectForKey:@"title"]stringByReplacingOccurrencesOfString:@" " withString:@""];
+        if(![title1 isEqualToString:title2]){
+            trimmedArray[realcount] = eventsArray[i];
+            realcount++;
+        }
+    }
+    
     [calendar removeAllObjects];
     
-    for(NSDictionary *entry in eventsArray) {
+    for(NSDictionary *entry in trimmedArray) {
+        
         NSDate *entryDate = [NSDate dateWithTimeIntervalSince1970:
                              [[[entry objectForKey:@"timeStamp"] objectAtIndex:0] doubleValue]];
         
@@ -72,7 +85,7 @@
             NSMutableArray *events = [[NSMutableArray alloc] init];
             [events addObject:entry];
             [category setObject:events forKey:@"events"];
-            [calendar addObject:category];
+                [calendar addObject:category];
         }
     }
     

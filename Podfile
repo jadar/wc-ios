@@ -6,4 +6,3 @@ pod "LVDebounce"
 pod "iOS-blur"
 pod "Mixpanel"
 pod "UIView+AutoLayout"
-pod "GoogleAnalytics-iOS-SDK", '~> 3.0.2'

@@ -79,6 +79,7 @@
 		61F70D8F1831E03700345907 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F70D8E1831E03700345907 /* HomeViewController.m */; };
 		61F70D921831F12700345907 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 61F70D911831F12700345907 /* Person.m */; };
 		6D2A5FD51B41F8CD00CD3285 /* chapelNEW.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 6D2A5FD41B41F8CD00CD3285 /* chapelNEW.pdf */; };
+		6D43A2C11B645AF0007BD0F2 /* SWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D43A2C01B645AF0007BD0F2 /* SWebViewController.swift */; };
 		6DDED5F11B44B1B2002B03BC /* RecordArticlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDED5F01B44B1B2002B03BC /* RecordArticlesViewController.swift */; };
 		6DDED5F31B44B37A002B03BC /* XMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDED5F21B44B37A002B03BC /* XMLParser.swift */; };
 		CCF1BF0EAA79491DB3D20327 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E273835E92EF424EA47D036B /* libPods.a */; };
@@ -210,6 +211,7 @@
 		61F70D911831F12700345907 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		6D2A5FD41B41F8CD00CD3285 /* chapelNEW.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = chapelNEW.pdf; sourceTree = "<group>"; };
 		6D2A5FD61B41F95900CD3285 /* Wheaton App-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Wheaton App-Bridging-Header.h"; sourceTree = "<group>"; };
+		6D43A2C01B645AF0007BD0F2 /* SWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWebViewController.swift; sourceTree = "<group>"; };
 		6DDED5F01B44B1B2002B03BC /* RecordArticlesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordArticlesViewController.swift; sourceTree = "<group>"; };
 		6DDED5F21B44B37A002B03BC /* XMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLParser.swift; sourceTree = "<group>"; };
 		8488F3B27992B7FC65559241 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -453,6 +455,7 @@
 				615CA71C18DCE7E50002279F /* CustomTableViewController.m */,
 				616DD25A1852B4D300AC53C3 /* WebViewController.h */,
 				616DD25B1852B4D300AC53C3 /* WebViewController.m */,
+				6D43A2C01B645AF0007BD0F2 /* SWebViewController.swift */,
 			);
 			name = Generic;
 			sourceTree = "<group>";
@@ -631,10 +634,11 @@
 		2D2653CF13E069CF00DE089C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0500;
 				TargetAttributes = {
 					2D2653D713E069CF00DE089C = {
-						DevelopmentTeam = 8V83H43ESG;
+						DevelopmentTeam = 79Z5575VZS;
 					};
 				};
 			};
@@ -741,6 +745,7 @@
 				61E4077917CECE8B0068AE00 /* WhoswhoSearchBar.m in Sources */,
 				61F6E4DF18E618E300E95093 /* CourseTableCell.m in Sources */,
 				61F70D861831924100345907 /* MoreTableViewController.m in Sources */,
+				6D43A2C11B645AF0007BD0F2 /* SWebViewController.swift in Sources */,
 				61E4079917D2662D0068AE00 /* BannerScrollView.m in Sources */,
 				615CA71D18DCE7E50002279F /* CustomTableViewController.m in Sources */,
 				61E2E91B187F236800E97AD7 /* WhosWhoDetailViewController.m in Sources */,

@@ -18,7 +18,6 @@ PODS:
   - AFNetworking/UIKit (2.2.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - GoogleAnalytics-iOS-SDK (3.0.9)
   - iOS-blur (0.0.5)
   - LVDebounce (0.0.4)
   - Mixpanel (2.5.3)
@@ -28,7 +27,6 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (= 2.2.1)
-  - GoogleAnalytics-iOS-SDK (~> 3.0.2)
   - iOS-blur
   - LVDebounce
   - Mixpanel
@@ -38,7 +36,6 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 59a0b8e9ecd4e194d64b4967232cd2cc83490113
-  GoogleAnalytics-iOS-SDK: 3b0994bef22ed2e176a9e2a4d1660c7c2542eb47
   iOS-blur: 8e4a4a2202b881e940869eca0c957808cbdf0a19
   LVDebounce: 166cf3e2215e74a1aae42902df15701f9c31d34f
   Mixpanel: aa00f018105f67563bc17b2b17f494c9fc672713
@@ -46,4 +43,4 @@ SPEC CHECKSUMS:
   TEAChart: 94e780962cb9a9a617bc8b4b64beeb6a8ab50e4d
   UIView+AutoLayout: 9eb76d5e72974e5b96c0350624d8f17ddb405ee0
 
-COCOAPODS: 0.36.4
+COCOAPODS: 0.38.0

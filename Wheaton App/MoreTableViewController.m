@@ -51,7 +51,7 @@
     NSMutableDictionary *chapelOption = [[NSMutableDictionary alloc] init];
     WebViewController *cVC = [self.storyboard instantiateViewControllerWithIdentifier:@"WebView"];
     cVC.allowZoom = YES;
-    cVC.url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"chapel" ofType:@"pdf"]];
+    cVC.url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"chapelNEW" ofType:@"pdf"]];
     [chapelOption setValue:@"Chapel Seat Layout" forKey:@"name"];
     [chapelOption setValue:cVC forKey:@"controller"];
     [optionsArray addObject:chapelOption];

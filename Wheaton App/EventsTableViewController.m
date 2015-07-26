@@ -72,6 +72,19 @@ static NSString *cellIdentifier = @"EventAutoTableViewCell";
     // parse out the json data
     NSError *error;
     eventResults  = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
+    
+    NSMutableArray *trimmedArray = [[NSMutableArray alloc] init];
+    int realcount = 0;
+    for(int i = 0; i < eventResults.count - 1; i++) {
+        NSString *title1 =[[eventResults[i] objectForKey:@"title"] stringByReplacingOccurrencesOfString:@" " withString:@""];
+        NSString *title2 =[[eventResults[i+1] objectForKey:@"title"]stringByReplacingOccurrencesOfString:@" " withString:@""];
+        if(![title1 isEqualToString:title2]){
+            trimmedArray[realcount] = eventResults[i];
+            realcount++;
+        }
+    }
+    
+    eventResults = trimmedArray;
     [self.tableView reloadData];
 }
 
