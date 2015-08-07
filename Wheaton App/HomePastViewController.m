@@ -102,11 +102,19 @@
     }
     
     NSArray *sportArray = [dic objectForKey:@"sports"];
+    NSMutableArray *hasTeam = [[NSMutableArray alloc] init];
     for (NSDictionary *s in sportArray) {
         Sport *sport = [[Sport alloc] init];
         [sport jsonToSport:s];
         [[home objectAtIndex:1] addObject:sport];
-        [self.tableView reloadData];
+
+        /*
+         //only adds the game if there are no other games for that team
+        if (![hasTeam containsObject:sport.team]) {
+            [hasTeam addObject:sport.team];
+            [[home objectAtIndex:1] addObject:sport];
+        }
+         */
     }
     
     NSArray *metraArray = [dic objectForKey:@"train"];

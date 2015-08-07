@@ -9,11 +9,12 @@
 import Foundation
 
 
-class SWebViewController: UIViewController, UIWebViewDelegate {
+class SWebViewController: UIViewController, UIWebViewDelegate, UIAlertViewDelegate {
     var url = NSURL(string: "")
     var allowZoom: Bool = false
     var refresh: Bool = false
     var myAct : UIActivityIndicatorView!
+    var urlToLaunch = NSURL(string:"")
 
     var myWebView: UIWebView! = UIWebView()
 
@@ -22,7 +23,7 @@ class SWebViewController: UIViewController, UIWebViewDelegate {
         myAct.hidesWhenStopped = true
         let barItem : UIBarButtonItem = UIBarButtonItem(customView: myAct)
         self.navigationItem.rightBarButtonItem = barItem
-        myWebView.frame = CGRect(x: 0.0, y: 0.0, width: UIScreen.mainScreen().bounds.width, height: self.view.frame.size.height)
+        myWebView.frame = CGRect(x: 0.0, y: 0.0, width: UIScreen.mainScreen().bounds.width, height: self.view.bounds.size.height - 113)
         myWebView.delegate = self
         self.view.addSubview(myWebView)
     }
@@ -57,5 +58,26 @@ class SWebViewController: UIViewController, UIWebViewDelegate {
     }
     
 
+    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        if (navigationType == UIWebViewNavigationType.LinkClicked){
+            urlToLaunch = request.URL
+            let alert = UIAlertView()
+            alert.delegate = self
+            alert.title = "Leave Wheaton App?"
+            alert.message = "Open link in Safari?"
+            alert.addButtonWithTitle("Cancel")
+            alert.addButtonWithTitle("Okay")
+            alert.show()
+            return false
+        }
+        return true
+    }
+    
+    
+    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+        if buttonIndex == 1 {
+            UIApplication.sharedApplication().openURL(urlToLaunch!)
+        }
+    }
     
 }
