@@ -104,7 +104,7 @@ class RecordArticlesViewController: UITableViewController, XMLParserDelegate {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let dict = xmlParser.arrParsedData[indexPath.row] as Dictionary<String, String>
-        var loadThis: String = dict["link"]!
+        let loadThis: String = dict["link"]!
         print("dict: ")
         print(dict["link"])
         //loadThis = "http://www.wheatonrecord.com/news/top-stories-of-2014-to-2015/"        

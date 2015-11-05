@@ -18,6 +18,7 @@
 {
     [super viewDidLoad];
     
+    
     self.activityView.hidesWhenStopped = YES;
 
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:self.url];
@@ -38,6 +39,11 @@
     if (webview.isLoading)
         return;
     [self.activityView stopAnimating];
+    /*
+    if(self.url)
+    Mixpanel *mixpanel = [Mixpanel sharedInstance];
+    [mixpanel track:@"Opened Menu" properties:@{}];
+     */
 }
 
 - (void)viewDidLayoutSubviews

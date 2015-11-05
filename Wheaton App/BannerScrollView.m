@@ -16,7 +16,7 @@
     UIViewController *parentController;
 }
 
-@synthesize scrollView, pageControl,scrollTimer;
+@synthesize scrollView, pageControl,scrollTimer,bannerImages;
 
 
 - (id)initWithFrame:(CGRect)frame
@@ -41,6 +41,8 @@
 - (void)loaded:(UIViewController *)parent
 {
     
+    
+    
     parentController = parent;
     [scrollView setTag:1];
     [scrollView setAutoresizingMask:UIViewAutoresizingNone];
@@ -56,28 +58,31 @@
     
     NSURL *URL = [NSURL URLWithString: c_Banners];
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSData *data = [NSData dataWithContentsOfURL: URL];
-        if (data == nil) {
-            [self addImage:[UIImage imageNamed:@"banner1.png"] index:0];
-        } else {
-            NSError *error;
-            NSArray *images = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-            
-            bannerImages = images;
-            for (int i = 0; i < [images count]; i++)
-            {
-                NSURL *imageURL = [NSURL URLWithString: [[images objectAtIndex:i] objectForKey:@"src"]];
-                UIImage *image = [UIImage imageWithData: [NSData dataWithContentsOfURL: imageURL]];
-                if (image) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self addImage:image index:i];
-                    });
+    if(bannerImages == nil){
+        NSLog(@"bannerImages loaded");
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSData *data = [NSData dataWithContentsOfURL: URL];
+            if (data == nil) {
+                [self addImage:[UIImage imageNamed:@"banner1.png"] index:0];
+            } else {
+                NSError *error;
+                NSArray *images = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+                
+                bannerImages = images;
+                for (int i = 0; i < [images count]; i++)
+                {
+                    NSURL *imageURL = [NSURL URLWithString: [[images objectAtIndex:i] objectForKey:@"src"]];
+                    UIImage *image = [UIImage imageWithData: [NSData dataWithContentsOfURL: imageURL]];
+                    if (image) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self addImage:image index:i];
+                        });
+                    }
                 }
             }
-        }
-        [self performSelectorOnMainThread:@selector(setupScrollView) withObject:nil waitUntilDone:NO];
-    });
+            [self performSelectorOnMainThread:@selector(setupScrollView) withObject:nil waitUntilDone:NO];
+        });
+    }
 }
 
 - (void)tappedImage: (UITapGestureRecognizer *)recognizer

@@ -24,9 +24,10 @@
 
 @synthesize home, scrollView;
 
+
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+    
     home = [[NSMutableArray alloc] init];
     
     NSMutableArray *chapelSection = [[NSMutableArray alloc] init];
@@ -37,16 +38,11 @@
     
     NSMutableArray *metraSection = [[NSMutableArray alloc] init];
     [home addObject:metraSection];
-
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:YES];
     
+    
+    [super viewWillAppear:YES];
     UIScreen *scrn = [UIScreen mainScreen];
     CGFloat myWidth = scrn.bounds.size.width;
-    
     scrollView =[[BannerScrollView alloc] initWithFrame:CGRectMake(0, 0, myWidth, myWidth/2)];
     [self.tableView addSubview:scrollView];
     [self.tableView setTableHeaderView:scrollView];
@@ -55,25 +51,40 @@
     [scrollView setDelegate:self];
     [scrollView setScrollEnabled:YES];
     [scrollView setAutoresizingMask:UIViewAutoresizingNone];
-
+    
     [self load];
+    [super viewDidLoad];
+    
+
+    
 }
 
 
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    
+    
+
+    
+}
+
+
 - (void)load
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSData* data = [NSData dataWithContentsOfURL: [NSURL URLWithString: c_Home]];
-        [self performSelectorOnMainThread:@selector(fetchedData:) withObject:data waitUntilDone:YES];
-    });
+        NSLog(@"loaded home data");
     
-    [Banner getChapelSkips:^(NSDictionary *attendance) {
-        self.chapelSkips = attendance;
-        [self.tableView reloadData];
-    } failure:^(NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSData* data = [NSData dataWithContentsOfURL: [NSURL URLWithString: c_Home]];
+            [self performSelectorOnMainThread:@selector(fetchedData:) withObject:data waitUntilDone:YES];
+        });
+     
+        [Banner getChapelSkips:^(NSDictionary *attendance) {
+            self.chapelSkips = attendance;
+            [self.tableView reloadData];
+        } failure:^(NSError *error) {
+            NSLog(@"Error: %@", error);
+        }];
 }
 
 

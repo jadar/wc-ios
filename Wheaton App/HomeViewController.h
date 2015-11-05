@@ -17,9 +17,9 @@
 }
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *switchViewControllers;
-@property (nonatomic, copy) NSArray *allViewControllers;
 @property (nonatomic, strong) UIViewController *currentViewController;
-@property (weak, nonatomic) IBOutlet UIView *viewContainer;
+@property (nonatomic, copy) NSArray *allViewControllers;
+@property (nonatomic,retain) IBOutlet UIView *viewContainer;
 @property (nonatomic, retain) NSMutableArray *searchResults;
 
 - (void)performSearch:(NSTimer *)timer;

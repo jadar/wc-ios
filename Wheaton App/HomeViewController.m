@@ -45,10 +45,6 @@
             [self showWhosWho:NO];
         });
     };
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
     
     HomePastViewController *pVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PastHome"];
     
@@ -61,9 +57,15 @@
     [self.viewContainer addSubview:pVC.view];
     
     
-    [self showWhosWho:[MTReachabilityManager isReachableViaWiFi]];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self showWhosWho:[MTReachabilityManager isReachableViaWiFi]];
+
+}
+
 
 - (void)showWhosWho:(BOOL)show
 {
@@ -75,6 +77,7 @@
         [self.searchDisplayController.searchBar setPlaceholder:@"Who's Who: Connect to Campus WiFi"];
     }
 }
+
 
 - (UIBarPosition)positionForBar:(id <UIBarPositioning>)bar
 {

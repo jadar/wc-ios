@@ -12,6 +12,6 @@
 @interface HomePastViewController : UITableViewController
 
 @property (nonatomic, retain) NSMutableArray *home;
-@property (strong, nonatomic) BannerScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet BannerScrollView *scrollView;
 
 @end
