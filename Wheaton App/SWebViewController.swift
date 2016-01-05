@@ -41,6 +41,15 @@ class SWebViewController: UIViewController, UIWebViewDelegate, UIAlertViewDelega
         }
     }
     
+    
+    func startLoadWithHTMLString(ahtmlString: String){
+        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+        dispatch_async(dispatch_get_global_queue(priority, 0)) {
+            self.myWebView.loadHTMLString(ahtmlString, baseURL: nil)
+        }
+    }
+    
+    
     func startLoad(){
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {

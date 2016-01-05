@@ -11,7 +11,6 @@
 #import "EventTableCell.h"
 #import "MetraTableViewCell.h"
 #import "TEAChart.h"
-#import "Banner.h"
 #import "Sport.h"
 
 @interface HomePastViewController ()
@@ -78,13 +77,6 @@
             NSData* data = [NSData dataWithContentsOfURL: [NSURL URLWithString: c_Home]];
             [self performSelectorOnMainThread:@selector(fetchedData:) withObject:data waitUntilDone:YES];
         });
-     
-        [Banner getChapelSkips:^(NSDictionary *attendance) {
-            self.chapelSkips = attendance;
-            [self.tableView reloadData];
-        } failure:^(NSError *error) {
-            NSLog(@"Error: %@", error);
-        }];
 }
 
 
@@ -159,20 +151,20 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
 {
-    if ([Banner hasLoggedIn]) {
         if([view isKindOfClass:[UITableViewHeaderFooterView class]] && section == 0){
             UITableViewHeaderFooterView *tableViewHeaderFooterView = (UITableViewHeaderFooterView *) view;
             
             CGFloat width = self.view.frame.size.width;
             
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake (width-167.0, 30, 150, 20)];
-            [label setFont:[UIFont fontWithName:@"HelveticaNeue" size:13]];
-            [label setTextColor:[UIColor colorWithRed:100/255.0f green:100/255.0f blue:100/255.0f alpha:1.0f]];
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake (width-167.0, 26, 150, 20)];
+            label.textColor         = [UIColor colorWithRed:0.298 green:0.337 blue:0.423 alpha:1.000];
+            label.font              = [UIFont systemFontOfSize:12.0];
+            label.backgroundColor   = [UIColor clearColor];
+            label.shadowColor       = [UIColor whiteColor];
+            label.shadowOffset      = CGSizeMake(0, 1);
+            
             [label setTextAlignment:NSTextAlignmentRight];
-            int absences = [[self.chapelSkips objectForKey:@"absences"] intValue];
-            if (self.chapelSkips) {
-                label.text = [[NSString stringWithFormat:@"Skips: %d/11", absences] uppercaseString];
-            }
+            label.text = [NSString stringWithFormat:@"SKIPS >"];
             
             label.userInteractionEnabled = YES;
             UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelTap)];
@@ -180,7 +172,7 @@
             
             [tableViewHeaderFooterView addSubview:label];
         }
-    }
+    
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -194,13 +186,8 @@
 }
 
 - (void)labelTap {
-    NSString *skips = [[[self.chapelSkips objectForKey:@"days"] valueForKey:@"description"] componentsJoinedByString:@"\n"];
-    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Skips:"
-                                                      message:skips
-                                                     delegate:nil
-                                            cancelButtonTitle:@"OK"
-                                            otherButtonTitles:nil];
-    [message show];
+    UIViewController *bVC = [self.storyboard instantiateViewControllerWithIdentifier:@"BannerLogin"];
+    [self.navigationController pushViewController:bVC animated:TRUE];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

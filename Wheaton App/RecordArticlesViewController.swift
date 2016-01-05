@@ -105,12 +105,12 @@ class RecordArticlesViewController: UITableViewController, XMLParserDelegate {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let dict = xmlParser.arrParsedData[indexPath.row] as Dictionary<String, String>
         let loadThis: String = dict["link"]!
-        print("dict: ")
-        print(dict["link"])
+
         //loadThis = "http://www.wheatonrecord.com/news/top-stories-of-2014-to-2015/"        
         let toPush = SWebViewController()
         self.navigationController?.pushViewController(toPush, animated: true)
         toPush.startLoadWithURLString(loadThis)
+        //toPush.startLoadWithHTMLString(dict["description"]!)
         /*
         UIViewController *selected = [dic objectForKey:@"controller"];
         selected.title = [dic objectForKey:@"name"];

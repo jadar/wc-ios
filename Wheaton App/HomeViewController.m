@@ -31,6 +31,8 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     UITextView *searchTextField = [self.searchDisplayController.searchBar valueForKey:@"_searchField"];
     searchTextField.textColor = [UIColor whiteColor];
+    CGRect tmpFrame = self.searchDisplayController.searchResultsTableView.frame;
+    self.searchDisplayController.searchResultsTableView.frame = CGRectMake(tmpFrame.origin.x, tmpFrame.origin.y, tmpFrame.size.width, self.view.frame.size.height);
     
     Mixpanel *mixpanel = [Mixpanel sharedInstance];
     [mixpanel track:@"Opened Home" properties:@{}];
@@ -57,12 +59,14 @@
     [self.viewContainer addSubview:pVC.view];
     
     
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [self showWhosWho:[MTReachabilityManager isReachableViaWiFi]];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
 
 }
 
@@ -90,49 +94,65 @@
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
     [LVDebounce fireAfter:0.5 target:self selector:@selector(performSearch:) userInfo:searchString];
-    return YES;
+    return NO;
 }
 
 - (void)performSearch:(NSTimer *)timer
 {
+    
+    NSLog(@"Perform Search");
+    
+    //[searchResults removeAllObjects];
+    //[self.searchDisplayController.searchResultsTableView reloadData];
     NSString *searchString = [timer userInfo];
     
-    //NSLog(@"Perform Search");
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSDictionary *parameters = @{ @"name": searchString, @"limit": @"20" };
-    [manager GET:c_Whoswho parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *resultsArray = responseObject;
-        searchResults = [[NSMutableArray alloc] init];
+    if(![searchString isEqualToString:@""]){
         
-        for (NSDictionary* dic in resultsArray) {
-            NSDictionary *name = [dic objectForKey:@"name"];
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSDictionary *parameters = @{ @"q": searchString, @"page_size":@"20", };
+        [manager GET:c_Whoswho parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"RESPONSE: %@",[responseObject objectForKey:@"page"] );
+            //if([[responseObject objectForKey:@"page"] isEqualToString:@"0"]){
+            NSArray *resultsArray = [responseObject objectForKey:@"search_results"];
+            NSArray *sortedArray = [resultsArray sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                return [[obj1 valueForKey:@"FirstName"] compare:[obj2 valueForKey:@"FirstName"]];
+            }];
             
-            Person *person = [[Person alloc] init];
-            person.firstName = [name objectForKey:@"first"];
-            person.prefName = [name objectForKey:@"preferred"];
-            person.lastName = [name objectForKey:@"last"];
-            person.email = [dic objectForKey:@"email"];
-            person.uid = [dic objectForKey:@"schoolID"];
+            searchResults = [[NSMutableArray alloc] initWithCapacity:sortedArray.count];
             
-            person.classification = @"N/A";
-            if (![[dic objectForKey:@"classification"] isEqual:[NSNull null]]) {
-                person.classification = [dic objectForKey:@"classification"];
+            for (NSDictionary* dic in sortedArray) {
+                //NSDictionary *name = [dic objectForKey:@"name"];
+                if([[dic objectForKey:@"Type"] isEqualToString:@"2"]){
+                    Person *person = [[Person alloc] init];
+                    person.firstName = [dic objectForKey:@"FirstName"];
+                    person.prefName = [dic objectForKey:@"PrefFirstName"];
+                    person.lastName = [dic objectForKey:@"LastName"];
+                    person.email = [dic objectForKey:@"Email"];
+                    //person.uid = [dic objectForKey:@"IdCardNum"];
+                    
+                    person.classification = @"N/A";
+                    if (![[dic objectForKey:@"Classification"] isEqual:[NSNull null]]) {
+                        person.classification = [dic objectForKey:@"Classification"];
+                    }
+                    
+                    person.cpo = @"N/A";
+                    if (![[dic objectForKey:@"CPOBox"] isEqual:[NSNull null]]) {
+                        person.cpo = [dic objectForKey:@"CPOBox"];
+                    }
+                    person.photo = [NSString stringWithFormat:@"https://intra.wheaton.edu/%@", [dic objectForKey:@"PhotoUrl"]];
+                    [searchResults addObject:person];
+                }
             }
             
-            person.cpo = @"N/A";
-            if (![[dic objectForKey:@"address"] isEqual:[NSNull null]]) {
-                person.cpo = [dic objectForKey:@"address"];
-            }
-            person.photo = [[[dic objectForKey:@"image"] objectForKey:@"url"] objectForKey:@"medium"];
-            [searchResults addObject:person];
-        }
-        
-        [self.searchDisplayController.searchResultsTableView reloadData];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
+            [self.searchDisplayController.searchResultsTableView reloadData];
+            
+            //}
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+        }];
+    }
+    
 }
 
 
@@ -142,6 +162,9 @@
 - (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    
+    [searchResults removeAllObjects];
+    [self.searchDisplayController.searchResultsTableView reloadData];
 }
 
 - (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView
@@ -151,10 +174,12 @@
 
 - (void) keyboardWillHide
 {
-    UITableView *tableView = [[self searchDisplayController] searchResultsTableView];
-    
-    [tableView setContentInset:UIEdgeInsetsZero];
-    [tableView setScrollIndicatorInsets:UIEdgeInsetsZero];
+    CGRect tmpFrame = self.searchDisplayController.searchResultsTableView.frame;
+    self.searchDisplayController.searchResultsTableView.frame = CGRectMake(tmpFrame.origin.x, tmpFrame.origin.y, tmpFrame.size.width, self.view.frame.size.height);
+    [self.searchDisplayController.searchResultsTableView setShowsVerticalScrollIndicator:NO];
+
+    //[tableView setContentInset:UIEdgeInsetsZero];
+    //[tableView setScrollIndicatorInsets:UIEdgeInsetsZero];
     
 }
 
@@ -199,9 +224,11 @@
         Person *selectedPerson = (Person *)[self.searchResults objectAtIndex:indexPath.row];
         
         WhosWhoDetailViewController *detail = [self.storyboard instantiateViewControllerWithIdentifier:@"WhosWhoDetail"];
+
         detail.title = selectedPerson.firstName;
+
         detail.person = selectedPerson;
-        
+
         [self.navigationController pushViewController:detail animated:YES];
     }
 }

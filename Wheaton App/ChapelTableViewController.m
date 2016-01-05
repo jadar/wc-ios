@@ -120,7 +120,7 @@
             [schedule addObject:category];
         }
     }
-    
+    [self moveToCorrectRow];
     [self.tableView reloadData];
 }
 

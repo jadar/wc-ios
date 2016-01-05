@@ -14,9 +14,13 @@
     return [NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName];
 }
 - (NSString *)fullNameWithPref {
-    if ([self.firstName isEqualToString:self.prefName]) {
+    if (self.prefName == (id)[NSNull null] || self.prefName.length == 0 ) {
+        NSLog(@"--TAKE1--");
+        NSLog([NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName]);
         return [NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName];
     }
+    NSLog(@"--TAKE2--");
+    NSLog([NSString stringWithFormat:@"%@ (%@) %@", self.firstName, self.prefName, self.lastName]);
     return [NSString stringWithFormat:@"%@ (%@) %@", self.firstName, self.prefName, self.lastName];
 }
 

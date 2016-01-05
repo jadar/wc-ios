@@ -8,7 +8,6 @@
 
 #import "MoreTableViewController.h"
 #import "WebViewController.h"
-#import "Banner.h"
 #import "Wheaton_App-Swift.h"
 
 
@@ -90,25 +89,6 @@
         [bannerOption setValue:bVC forKey:@"controller"];
         [bannerArray addObject:bannerOption];
         
-        if ([Banner hasLoggedIn]) {
-//            NSMutableDictionary *degreeOption = [[NSMutableDictionary alloc] init];
-//            UIViewController *dVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DegreeEvaluation"];
-//            [degreeOption setValue:@"Degree Evaluation (Beta)" forKey:@"name"];
-//            [degreeOption setValue:dVC forKey:@"controller"];
-//            [bannerArray addObject:degreeOption];
-            
-            NSMutableDictionary *accountOption = [[NSMutableDictionary alloc] init];
-            UIViewController *aVC = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountTable"];
-            [accountOption setValue:@"Account Overview" forKey:@"name"];
-            [accountOption setValue:aVC forKey:@"controller"];
-            [bannerArray addObject:accountOption];
-            
-            NSMutableDictionary *calendarOption = [[NSMutableDictionary alloc] init];
-            UIViewController *calVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ImportCalendar"];
-            [calendarOption setValue:@"Import Class Schedule" forKey:@"name"];
-            [calendarOption setValue:calVC forKey:@"controller"];
-            [bannerArray addObject:calendarOption];
-        }
         
         [bannerDictionary setObject:bannerArray forKey:@"array"];
         [moreTable addObject:bannerDictionary];

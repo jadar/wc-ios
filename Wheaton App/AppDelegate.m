@@ -51,7 +51,7 @@
     }
     
     NSLog(@"My other token is: %@", UUID);
-    
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     return YES;
 }
 

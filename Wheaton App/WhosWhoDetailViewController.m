@@ -7,7 +7,6 @@
 //
 
 #import "WhosWhoDetailViewController.h"
-#import "Banner.h"
 
 @interface WhosWhoDetailViewController ()
 
@@ -38,10 +37,7 @@
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
     tapGesture.numberOfTapsRequired = 2;
     [self.view addGestureRecognizer:tapGesture];
-    
-    if ([Banner hasLoggedIn] && ![[Banner getSchoolID] isEqualToString:self.person.uid]) {
-        [self displayWink];
-    }
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -91,15 +87,8 @@
 - (void)handleTapGesture:(UITapGestureRecognizer *)sender
 {
     if (sender.state == UIGestureRecognizerStateRecognized) {
-        if ([Banner hasLoggedIn]) {
-            if(![[Banner getSchoolID] isEqualToString:self.person.uid]) {
-                [self setFavorite];
-                [self displayWink];
-                [self animateWink];
-            }
-        } else {
-            [self alertMessage:@"Error" message:@"Please login and enable push notifications to use this feature" button:@"Ok"];
-        }
+            [self alertMessage:@"Sad face" message:@"No winking right now" button:@"Ok"];
+            [mixpanel track:@"Wink Attempted" properties:@{}];
     }
 }
 
