@@ -18,6 +18,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
     
     [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x00447c)];
     
@@ -93,6 +94,13 @@
      See also applicationDidEnterBackground:.
      */
 }
+
+void uncaughtExceptionHandler(NSException *exception) {
+    [[Mixpanel sharedInstance] track:@"App Crashed" properties:@{@"Exception:":exception}];
+    NSLog(@"App crashing with exception: %@", exception);
+    //Save somewhere that your app has crashed.
+}
+
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {

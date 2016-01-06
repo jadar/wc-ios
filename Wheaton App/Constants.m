@@ -24,6 +24,7 @@ NSString * const c_Events = @"https://isoncamp.us/wheaton/events";
 NSString * const c_PushOptions = @"https://isoncamp.us/apn";
 NSString * const c_About = @"https://isoncamp.us/wheaton/about";
 NSString * const c_Metra = @"https://isoncamp.us/wheaton/train";
+NSString * const c_Report = @"http://goo.gl/forms/esnfhkRlq2";
 
 
 /*

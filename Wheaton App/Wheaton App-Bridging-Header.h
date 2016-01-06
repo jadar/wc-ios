@@ -3,4 +3,5 @@
 //
 
 #import "WebViewController.h"
+#import <Mixpanel/Mixpanel.h>
 #import "Mixpanel.h"

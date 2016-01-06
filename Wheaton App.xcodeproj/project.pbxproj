@@ -16,6 +16,7 @@
 		2DCEB34513E2010A00787E39 /* LinksList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2DCEB34413E2010A00787E39 /* LinksList.plist */; };
 		574EF7361C19019300E80B33 /* GSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 574EF7351C19019300E80B33 /* GSKeychain.m */; };
 		574EF7381C1901C800E80B33 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 574EF7371C1901C800E80B33 /* Security.framework */; };
+		577724801C3D89FD00DB6775 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 613E6CF418E4BF5F00445FFE /* Media.xcassets */; };
 		61032B0C17F112B900CC95FA /* EventSingleLineView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61032B0B17F112B900CC95FA /* EventSingleLineView.xib */; };
 		61032B0E17F1157B00CC95FA /* EventSubtitleLineView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61032B0D17F1157B00CC95FA /* EventSubtitleLineView.xib */; };
 		61032B1917F3324200CC95FA /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61032B1817F3324200CC95FA /* CoreData.framework */; };
@@ -29,7 +30,6 @@
 		613CF94718D8D737005156A8 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = 613CF94618D8D737005156A8 /* Course.m */; };
 		613CF94A18D8D882005156A8 /* CourseRequirement.m in Sources */ = {isa = PBXBuildFile; fileRef = 613CF94918D8D882005156A8 /* CourseRequirement.m */; };
 		613CF99218DB79A3005156A8 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 613CF99118DB79A3005156A8 /* EventKit.framework */; };
-		613E6CF518E4BF5F00445FFE /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 613E6CF418E4BF5F00445FFE /* Media.xcassets */; };
 		6141152E18374F7E00B71051 /* PushNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 6141152D18374F7E00B71051 /* PushNotification.m */; };
 		6147B49418AD531A00110753 /* AutoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6147B49318AD531A00110753 /* AutoTableViewCell.m */; };
 		615CA71D18DCE7E50002279F /* CustomTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 615CA71C18DCE7E50002279F /* CustomTableViewController.m */; };
@@ -43,7 +43,6 @@
 		61B04B0918B8728800CC509A /* MetraTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 61B04B0718B8728800CC509A /* MetraTableViewCell.m */; };
 		61B04B0A18B8728800CC509A /* MetraTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61B04B0818B8728800CC509A /* MetraTableViewCell.xib */; };
 		61B3FCB418E92A95009F58CD /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61B3FCB318E92A95009F58CD /* CoreBluetooth.framework */; };
-		61BCE0FD1883A5E600C7AB12 /* chapel.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 61BCE0FC1883A5E600C7AB12 /* chapel.pdf */; };
 		61BCE1041885E18600C7AB12 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BCE1031885E18600C7AB12 /* Constants.m */; };
 		61CA40AD17CA702200617623 /* iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61CA40AC17CA702200617623 /* iPhone.storyboard */; };
 		61CA40BC17CA798100617623 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61CA40BB17CA798100617623 /* Twitter.framework */; };
@@ -148,7 +147,6 @@
 		61B04B0718B8728800CC509A /* MetraTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MetraTableViewCell.m; sourceTree = "<group>"; };
 		61B04B0818B8728800CC509A /* MetraTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MetraTableViewCell.xib; sourceTree = "<group>"; };
 		61B3FCB318E92A95009F58CD /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
-		61BCE0FC1883A5E600C7AB12 /* chapel.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = chapel.pdf; sourceTree = "<group>"; };
 		61BCE1021885DFF600C7AB12 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		61BCE1031885E18600C7AB12 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		61C6193A18B29F8B00357869 /* UIImage_Scale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIImage_Scale.h; sourceTree = "<group>"; };
@@ -305,7 +303,6 @@
 			children = (
 				6D2A5FD41B41F8CD00CD3285 /* chapelNEW.pdf */,
 				613E6CF418E4BF5F00445FFE /* Media.xcassets */,
-				61BCE0FC1883A5E600C7AB12 /* chapel.pdf */,
 				2DCEB34413E2010A00787E39 /* LinksList.plist */,
 				2D2653E413E069CF00DE089C /* Wheaton App-Info.plist */,
 				2D2653E513E069CF00DE089C /* InfoPlist.strings */,
@@ -656,11 +653,10 @@
 			files = (
 				6D2A5FD51B41F8CD00CD3285 /* chapelNEW.pdf in Resources */,
 				2D2653E713E069CF00DE089C /* InfoPlist.strings in Resources */,
+				577724801C3D89FD00DB6775 /* Media.xcassets in Resources */,
 				2DCEB34513E2010A00787E39 /* LinksList.plist in Resources */,
 				61CA40AD17CA702200617623 /* iPhone.storyboard in Resources */,
 				61F6E4E018E618E300E95093 /* CourseTableCell.xib in Resources */,
-				61BCE0FD1883A5E600C7AB12 /* chapel.pdf in Resources */,
-				613E6CF518E4BF5F00445FFE /* Media.xcassets in Resources */,
 				61DDA64D18368F8B00EBA92C /* AcademicTableViewController.h in Resources */,
 				616DD2591852AB7E00AC53C3 /* WhoswhoTableCell.xib in Resources */,
 				61032B0E17F1157B00CC95FA /* EventSubtitleLineView.xib in Resources */,
@@ -860,7 +856,7 @@
 				GCC_PREFIX_HEADER = "Wheaton App/Wheaton App-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Wheaton App/Wheaton App-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/**";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -895,7 +891,7 @@
 				GCC_PREFIX_HEADER = "Wheaton App/Wheaton App-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Wheaton App/Wheaton App-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/**";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -949,7 +945,7 @@
 				GCC_PREFIX_HEADER = "Wheaton App/Wheaton App-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Wheaton App/Wheaton App-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/**";
 				PRODUCT_NAME = "$(TARGET_NAME)";

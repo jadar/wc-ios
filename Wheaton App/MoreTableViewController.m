@@ -13,11 +13,15 @@
 
 @interface MoreTableViewController ()
 
+
 @end
+
 
 @implementation MoreTableViewController {
     NSMutableArray *moreTable;
 }
+@synthesize tor;
+
 
 - (void)viewDidLoad
 {
@@ -29,6 +33,16 @@
     [self generateTable];
     
     [self.navigationController.navigationBar setTranslucent:NO];
+    
+    UISwipeGestureRecognizer *rightRecognizer;
+    rightRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeRight:)];
+    [rightRecognizer setDirection: UISwipeGestureRecognizerDirectionRight];
+    [[self view] addGestureRecognizer:rightRecognizer];
+    
+    UISwipeGestureRecognizer *leftRecognizer;
+    leftRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeLeft:)];
+    [leftRecognizer setDirection: UISwipeGestureRecognizerDirectionLeft];
+    [[self view] addGestureRecognizer:leftRecognizer];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -99,6 +113,13 @@
     
     [endDictionary setObject:@"" forKey:@"header"];
     
+    NSMutableDictionary *reportOption = [[NSMutableDictionary alloc] init];
+    WebViewController *rVC = [self.storyboard instantiateViewControllerWithIdentifier:@"WebView"];
+    rVC.url = [NSURL URLWithString:c_Report];
+    [reportOption setValue:@"Report a bug" forKey:@"name"];
+    [reportOption setValue:rVC forKey:@"controller"];
+    [endArray addObject:reportOption];
+    
     NSMutableDictionary *aboutOption = [[NSMutableDictionary alloc] init];
     WebViewController *aVC = [self.storyboard instantiateViewControllerWithIdentifier:@"WebView"];
     aVC.url = [NSURL URLWithString:c_About];
@@ -167,6 +188,57 @@
     [self.navigationController
      pushViewController:selected
      animated:YES];
+}
+
+
+- (void)handleSwipeRight:(id)swipe
+{
+    CGFloat yVal = [swipe locationInView:self.view].y - 80.0;
+    Mixpanel *mixpanel = [Mixpanel sharedInstance];
+    [mixpanel track:@"Tor Touch" properties:@{}];
+    
+    NSLog(@"Right");
+    tor = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TorTouch"]];
+    tor.frame = CGRectMake(-160.0, yVal, 160.0, 160.0);
+    CGPoint leftPos = CGPointMake(-160, yVal);
+    CGPoint rightPos = CGPointMake(self.view.frame.size.width+160, yVal);
+    
+    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"position.x"];
+    anim.fromValue  = [NSValue valueWithCGPoint:leftPos];
+    anim.toValue    = [NSValue valueWithCGPoint:rightPos];
+    anim.duration   = 0.4f;
+    anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+    anim.removedOnCompletion = TRUE;
+
+    [self.view addSubview:tor];
+    [tor.layer addAnimation:anim forKey:@"position.x"];
+    //[tor removeFromSuperview];
+}
+
+- (void)handleSwipeLeft:(id)swipe
+{
+    CGFloat yVal = [swipe locationInView:self.view].y - 80.0;
+    Mixpanel *mixpanel = [Mixpanel sharedInstance];
+    [mixpanel track:@"Tor Touch" properties:@{}];
+    
+    NSLog(@"Left");
+    tor = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TorTouch"]];
+    tor.transform = CGAffineTransformMakeScale(-1, 1); //Flipped
+    tor.frame = CGRectMake(self.view.frame.size.width+160, yVal, 160.0, 160.0);
+    CGPoint rightPos = CGPointMake(self.view.frame.size.width+160, yVal);
+    CGPoint leftPos = CGPointMake(-160.0, yVal);
+    
+    
+    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"position.x"];
+    anim.fromValue  = [NSValue valueWithCGPoint:rightPos];
+    anim.toValue    = [NSValue valueWithCGPoint:leftPos];
+    anim.duration   = 0.4f;
+    anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    anim.removedOnCompletion = TRUE;
+    
+    [self.view addSubview:tor];
+    [tor.layer addAnimation:anim forKey:@"position.x"];
+    //[tor removeFromSuperview];
 }
 
 @end

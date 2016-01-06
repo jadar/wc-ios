@@ -120,8 +120,8 @@
             [schedule addObject:category];
         }
     }
-    [self moveToCorrectRow];
     [self.tableView reloadData];
+    [self moveToCorrectRow];
 }
 
 - (void)refreshView:(UIRefreshControl *)sender {

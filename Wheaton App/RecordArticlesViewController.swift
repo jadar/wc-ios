@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class RecordArticlesViewController: UITableViewController, XMLParserDelegate {
     
     var xmlParser : XMLParser!
@@ -26,7 +27,9 @@ class RecordArticlesViewController: UITableViewController, XMLParserDelegate {
         let barItem : UIBarButtonItem = UIBarButtonItem(customView: myAct)
         self.navigationItem.rightBarButtonItem = barItem
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-        
+            
+        Mixpanel.sharedInstance().track("Opened Record Feed")
+
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
             self.myAct.startAnimating()
             self.xmlParser.startParsingWithContentsOfURL(url!)
@@ -65,7 +68,7 @@ class RecordArticlesViewController: UITableViewController, XMLParserDelegate {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "record")
+        let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "record")
         cell.frame = CGRectMake(0, 0, tableView.frame.size.width, 70)
         cell.textLabel?.font = UIFont.boldSystemFontOfSize(16)
         cell.textLabel?.numberOfLines = 2
@@ -105,21 +108,28 @@ class RecordArticlesViewController: UITableViewController, XMLParserDelegate {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let dict = xmlParser.arrParsedData[indexPath.row] as Dictionary<String, String>
         let loadThis: String = dict["link"]!
-
-        //loadThis = "http://www.wheatonrecord.com/news/top-stories-of-2014-to-2015/"        
+        
+        let alert = UIAlertController(title: "Open Safari?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Read Article", style: .Default, handler: { action in
+            switch action.style{
+            case .Default:
+                Mixpanel.sharedInstance().track("Opened Record Article", properties:["title":dict["title"]!])
+                UIApplication.sharedApplication().openURL(NSURL(string:loadThis)!)
+                
+            case .Cancel:
+                print("cancel")
+                
+            case .Destructive:
+                print("destructive")
+            }
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
+        
+        /*
         let toPush = SWebViewController()
         self.navigationController?.pushViewController(toPush, animated: true)
         toPush.startLoadWithURLString(loadThis)
-        //toPush.startLoadWithHTMLString(dict["description"]!)
-        /*
-        UIViewController *selected = [dic objectForKey:@"controller"];
-        selected.title = [dic objectForKey:@"name"];
-        [self.navigationController
-        pushViewController:selected
-        animated:YES];
-        WebViewController cVC = [self.storyboard instantiateViewControllerWithIdentifier:@"WebView"];
-        cVC.allowZoom = YES;
-        cVC.url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"chapelNEW" ofType:@"pdf"]];
 */
     }
     
@@ -134,23 +144,5 @@ class RecordArticlesViewController: UITableViewController, XMLParserDelegate {
         headerView.addSubview(label)
         return headerView
     }
-    /*
-    - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-    {
-    NSString *sectionTitle = [self tableView:tableView titleForHeaderInSection:section];
-    if (sectionTitle == nil) {
-    return nil;
-    }
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake (10, 2, 200, 20)];
-    label.text = sectionTitle;
-    [label setFont:[UIFont fontWithName:@"HelveticaNeue" size:14]];
-    [headerView addSubview:label];
-    
-    [headerView setBackgroundColor:[UIColor colorWithRed:243/255.0f green:243/255.0f blue:244/255.0f alpha:1.0f]];
-    [label setBackgroundColor:[UIColor clearColor]];
-    return headerView;
-    }
-    */
     
 }

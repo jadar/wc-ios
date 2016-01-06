@@ -16,4 +16,6 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) Mixpanel *mixpanel;
 
+void uncaughtExceptionHandler(NSException *exception);
+
 @end

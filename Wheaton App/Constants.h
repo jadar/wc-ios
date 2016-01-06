@@ -20,3 +20,4 @@ extern NSString * const c_Banner;
 extern NSString * const c_PushOptions;
 extern NSString * const c_About;
 extern NSString * const c_Metra;
+extern NSString * const c_Report;

@@ -169,16 +169,38 @@
         [message show];
     }
     else {
-        //NSLog(@"\n\n\nSKIPS: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        NSLog(@"\n\n\nSKIPS: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        chapelSkips = [[NSMutableArray alloc] init];
+
+        NSString *firstString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSRange   firstRange = NSMakeRange(0, [firstString length]);
+        NSString *firstpattern = @"<TH CLASS=\"ddheader\" scope=\"col\" >Current Seat:</TH>((.|\n)+?)</TR>";
+        NSError  *error = nil;
+        
+        NSRegularExpression* firstregex = [NSRegularExpression regularExpressionWithPattern: firstpattern options:0 error:&error];
+        NSArray* firstmatches = [firstregex matchesInString:firstString options:0 range: firstRange];
+        for (NSTextCheckingResult* match in firstmatches) {
+            NSString* matchText = [firstString substringWithRange:[match range]];
+            NSLog(@"match: %@", matchText);
+            matchText = [matchText stringByReplacingOccurrencesOfString:@"<TH CLASS=\"ddheader\" scope=\"col\" >Current Seat:</TH>" withString:@""];
+            matchText = [matchText stringByReplacingOccurrencesOfString:@"<TD CLASS=\"dddead\">&nbsp;" withString:@""];
+            matchText = [matchText stringByReplacingOccurrencesOfString:@"<TD CLASS=\"dddefault\">" withString:@""];
+            matchText = [matchText stringByReplacingOccurrencesOfString:@"</TD>" withString:@""];
+            matchText = [matchText stringByReplacingOccurrencesOfString:@"</TR>" withString:@""];
+
+            [chapelSkips addObject:[NSString stringWithFormat:@"Seat: %@", [matchText stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]]]];
+        }
+        
+        
+        //chapel skips
         NSString *searchedString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         NSRange   searchedRange = NSMakeRange(0, [searchedString length]);
         NSString *pattern = @"<TD CLASS=\"dddefault\">(.+?)-(.+?)-(.+?)</TD>";
-        NSError  *error = nil;
         
         NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern: pattern options:0 error:&error];
         NSArray* matches = [regex matchesInString:searchedString options:0 range: searchedRange];
-        chapelSkips = [[NSMutableArray alloc] init];
-        [chapelSkips addObject:@"Recorded skips:"];
+        //chapelSkips = [[NSMutableArray alloc] init];
+        [chapelSkips addObject:@"Recorded chapel skips:"];
         for (NSTextCheckingResult* match in matches) {
             NSString* matchText = [searchedString substringWithRange:[match range]];
             NSLog(@"match: %@", matchText);
@@ -203,6 +225,10 @@
                                                 cancelButtonTitle:@"OK"
                                                 otherButtonTitles:nil];
         [message show];
+        
+        
+        Mixpanel *mixpanel = [Mixpanel sharedInstance];
+        [mixpanel track:@"Successful Banner Login" properties:@{}];
         [[self navigationController] popViewControllerAnimated:YES];
     }
 }
@@ -214,7 +240,7 @@
     NSURL *URL = [NSURL URLWithString:@"https://bannerweb.wheaton.edu/db1/wcskchpl.P_WCViewChapl"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
     request.HTTPMethod = @"POST";
-    NSString *params = [NSString stringWithFormat:@"term=201508"];
+    NSString *params = [NSString stringWithFormat:@"term=201601"];
     NSData *data = [params dataUsingEncoding:NSUTF8StringEncoding];
     [request addValue:@"8bit" forHTTPHeaderField:@"Content-Transfer-Encoding"];
     [request addValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];

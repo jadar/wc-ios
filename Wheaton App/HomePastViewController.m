@@ -49,6 +49,7 @@
     
     [scrollView setDelegate:self];
     [scrollView setScrollEnabled:YES];
+    [self.tableView setShowsVerticalScrollIndicator:false];
     [scrollView setAutoresizingMask:UIViewAutoresizingNone];
     
     [self load];
@@ -62,10 +63,8 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    
-    
-
-    
+    [self.tableView setShowsVerticalScrollIndicator:false];
+   
 }
 
 
@@ -151,17 +150,19 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
 {
+    if ([Utilities enabledNotifications]) {
+
         if([view isKindOfClass:[UITableViewHeaderFooterView class]] && section == 0){
             UITableViewHeaderFooterView *tableViewHeaderFooterView = (UITableViewHeaderFooterView *) view;
             
             CGFloat width = self.view.frame.size.width;
             
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake (width-167.0, 26, 150, 20)];
-            label.textColor         = [UIColor colorWithRed:0.298 green:0.337 blue:0.423 alpha:1.000];
-            label.font              = [UIFont systemFontOfSize:12.0];
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake (width-167.0, 27, 150, 20)];
+            label.textColor         = [UIColor colorWithRed:117/255.0f green:117/255.0f blue:121/255.0f alpha:1.0f];
+            [label setFont:[UIFont systemFontOfSize:12 weight: UIFontWeightLight]];
             label.backgroundColor   = [UIColor clearColor];
-            label.shadowColor       = [UIColor whiteColor];
-            label.shadowOffset      = CGSizeMake(0, 1);
+            //label.shadowColor       = [UIColor whiteColor];
+            //label.shadowOffset      = CGSizeMake(0, 1);
             
             [label setTextAlignment:NSTextAlignmentRight];
             label.text = [NSString stringWithFormat:@"SKIPS >"];
@@ -172,6 +173,7 @@
             
             [tableViewHeaderFooterView addSubview:label];
         }
+    }
     
 }
 
