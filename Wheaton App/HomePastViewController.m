@@ -35,8 +35,8 @@
     NSMutableArray *sportSection = [[NSMutableArray alloc] init];
     [home addObject:sportSection];
     
-    NSMutableArray *metraSection = [[NSMutableArray alloc] init];
-    [home addObject:metraSection];
+    //NSMutableArray *metraSection = [[NSMutableArray alloc] init];
+    //[home addObject:metraSection];
     
     
     [super viewWillAppear:YES];
@@ -95,7 +95,7 @@
 - (void) parseResults:(NSDictionary *)dic{
     [[home objectAtIndex:0] removeAllObjects];
     [[home objectAtIndex:1] removeAllObjects];
-    [[home objectAtIndex:2] removeAllObjects];
+    //[[home objectAtIndex:2] removeAllObjects];
     
     
     NSArray *chapelArray = [dic objectForKey:@"chapel"];
@@ -119,10 +119,12 @@
          */
     }
     
+    /*
     NSArray *metraArray = [dic objectForKey:@"train"];
     for (NSDictionary *m in metraArray) {
         [[home objectAtIndex:2] addObject:m];
     }
+    */
     
     [self.tableView reloadData];
     
@@ -182,8 +184,6 @@
         return @"Chapel";
     } else if(section == 1) {
         return @"Sports";
-    } else {
-        return @"Metra";
     }
 }
 
@@ -243,7 +243,7 @@
         }
         
         cell = [sport generateCell:sportCell];
-    } else if (indexPath.section == 2) {
+    } /*else if (indexPath.section == 2) {
         
         NSString *cellIdentifier = @"MetraCell";
         NSString *cellFileName = @"MetraTableViewCell";
@@ -264,7 +264,7 @@
         eventCell.departureTimeOutbound.text = [outbound objectForKey:@"departure"];
         
         cell = eventCell;
-    }
+    }*/
     return cell;
 }
 

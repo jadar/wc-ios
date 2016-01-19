@@ -9,21 +9,20 @@
 #import "Constants.h"
 
 
-NSString * const c_Home = @"https://isoncamp.us/wheaton/home";
-NSString * const c_MapLocations = @"https://isoncamp.us/wheaton/locations";
-NSString * const c_Chapel = @"https://isoncamp.us/wheaton/chapel";
-NSString * const c_Menu = @"https://isoncamp.us/wheaton/menu";
+NSString * const c_Home = @"http://mobileapps.wheaton.edu/api/home";
+NSString * const c_MapLocations = @"http://mobileapps.wheaton.edu/api/locations";
+NSString * const c_Chapel = @"http://mobileapps.wheaton.edu/api/chapel";
+NSString * const c_Menu = @"http://mobileapps.wheaton.edu/api/menu";
 //NSString * const c_Whoswho = @"https://isoncamp.us/wheaton/person";
 NSString * const c_Whoswho = @"https://intra.wheaton.edu/whoswho/person/searchJson";
-NSString * const c_Sports = @"https://isoncamp.us/wheaton/sports";
-NSString * const c_Academic = @"https://isoncamp.us/wheaton/academic";
-NSString * const c_Banners = @"https://s3.amazonaws.com/wcstatic/banners.json";
-NSString * const c_Banner = @"https://isoncamp.us/wheaton/banner";
-NSString * const c_Favorites = @"https://isoncamp.us/wheaton/person/favorites";
-NSString * const c_Events = @"https://isoncamp.us/wheaton/events";
-NSString * const c_PushOptions = @"https://isoncamp.us/apn";
-NSString * const c_About = @"https://isoncamp.us/wheaton/about";
-NSString * const c_Metra = @"https://isoncamp.us/wheaton/train";
+NSString * const c_Sports = @"http://mobileapps.wheaton.edu/api/sports";
+NSString * const c_Academic = @"http://mobileapps.wheaton.edu/api/academic";
+NSString * const c_Banners = @"http://mobileapps.wheaton.edu/api/banners";
+NSString * const c_Favorites = @"http://mobileapps.wheaton.edu/api/favorites";
+NSString * const c_Events = @"http://mobileapps.wheaton.edu/api/events";
+NSString * const c_PushOptions = @"http://mobileapps.wheaton.edu/api/apn";
+NSString * const c_About = @"http://mobileapps.wheaton.edu/api/about";
+NSString * const c_Metra = @"http://mobileapps.wheaton.edu/api/train";
 NSString * const c_Report = @"http://goo.gl/forms/esnfhkRlq2";
 
 

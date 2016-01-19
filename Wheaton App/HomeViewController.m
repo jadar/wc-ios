@@ -140,7 +140,7 @@
                     if (![[dic objectForKey:@"CPOBox"] isEqual:[NSNull null]]) {
                         person.cpo = [dic objectForKey:@"CPOBox"];
                     }
-                    person.photo = [NSString stringWithFormat:@"https://intra.wheaton.edu/%@", [dic objectForKey:@"PhotoUrl"]];
+                    person.photo =  [dic objectForKey:@"PhotoUrl"];
                     [searchResults addObject:person];
                 }
             }

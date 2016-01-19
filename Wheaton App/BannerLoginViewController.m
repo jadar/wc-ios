@@ -30,6 +30,9 @@
 
 - (void) barButtonTapped
 {
+    [email resignFirstResponder];
+    [password resignFirstResponder];
+    
     if (email.text.length <= 0 && password.text.length <= 0) {
         return;
     }
@@ -64,6 +67,12 @@
 
 - (void)viewDidLoad
 {
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"storeCredentials"]){
+        [storecreds setOn:YES];
+    }
+    else {
+        [storecreds setOn:NO];
+    }
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     loginButton = [[UIBarButtonItem alloc] initWithTitle:@"Login"
                                                                   style:UIBarButtonItemStylePlain
@@ -116,12 +125,20 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     if (email.text.length <= 0 && password.text.length <= 0) {
+        //Nothing in either text field
         return NO;
     }
     
+    else if (email.text.length > 0 && password.text.length <= 0){
+        //Characters in username but not password field
+        [email resignFirstResponder];
+        [password becomeFirstResponder];
+        return NO;
+    }
     else {
-        [textField resignFirstResponder];
-        return YES;
+        //Characters in both fields
+        [self barButtonTapped];
+        return NO;
     }
 }
 
@@ -167,6 +184,9 @@
                                                 otherButtonTitles:nil];
         
         [message show];
+        [activity stopAnimating];
+        self.navigationItem.rightBarButtonItem = loginButton;
+
     }
     else {
         NSLog(@"\n\n\nSKIPS: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
