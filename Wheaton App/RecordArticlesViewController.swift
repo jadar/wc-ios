@@ -9,40 +9,37 @@
 import UIKit
 
 
-class RecordArticlesViewController: UITableViewController, XMLParserDelegate {
-    
-    var xmlParser : XMLParser!
+class RecordArticlesViewController: UITableViewController, WheatonXMLParserDelegate {
+    var xmlParser : WheatonXMLParser!
     var myAct : UIActivityIndicatorView!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        if(xmlParser == nil){
-        let url = NSURL(string: "http://www.wheatonrecord.com/feed/")
-        xmlParser = XMLParser()
-        xmlParser.delegate = self
-        myAct = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
+        Mixpanel.sharedInstance().track("Opened Record Feed")
+        
+        // Don't set up the XML parser if it's not necessary. (How can viewDidLoad be called multiple times anyways?)
+        if let _ = xmlParser {
+            return
+        }
+        
+        myAct = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.white)
         myAct.hidesWhenStopped = true
         let barItem : UIBarButtonItem = UIBarButtonItem(customView: myAct)
         self.navigationItem.rightBarButtonItem = barItem
-        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-            
-        Mixpanel.sharedInstance().track("Opened Record Feed")
-
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
+        
+        xmlParser = WheatonXMLParser()
+        xmlParser.delegate = self
+        
+        let url = URL(string: "http://www.wheatonrecord.com/feed/")!
+        DispatchQueue.global(qos: .userInitiated).async {
             self.myAct.startAnimating()
-            self.xmlParser.startParsingWithContentsOfURL(url!)
-            dispatch_async(dispatch_get_main_queue()) {
+            self.xmlParser.startParsingWithContentsOfURL(url)
+            DispatchQueue.main.async {
                 self.myAct.stopAnimating()
                 self.parsingWasFinished()
             }
         }
-        }
-        
     }
-    
-    
     
     // MARK: XMLParserDelegate method implementation
     
@@ -50,29 +47,22 @@ class RecordArticlesViewController: UITableViewController, XMLParserDelegate {
         self.tableView.reloadData()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
-    
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return xmlParser.arrParsedData.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "record")
-        cell.frame = CGRectMake(0, 0, tableView.frame.size.width, 70)
-        cell.textLabel?.font = UIFont.boldSystemFontOfSize(16)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "record")
+        cell.frame = CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 70)
+        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         cell.textLabel?.numberOfLines = 2
-        cell.detailTextLabel?.font = UIFont.systemFontOfSize(10)
+        cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 10)
         
         if let currentDictionary = xmlParser.arrParsedData[indexPath.row] as? Dictionary<String, String>{
             cell.textLabel!.text = currentDictionary["title"]
@@ -81,12 +71,12 @@ class RecordArticlesViewController: UITableViewController, XMLParserDelegate {
     }
     
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70;
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if(!myAct.isAnimating()){
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if(!myAct.isAnimating){
             return "Most Recent"
         }
         else {
@@ -95,54 +85,36 @@ class RecordArticlesViewController: UITableViewController, XMLParserDelegate {
     }
     
     
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        print(sender)
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dict = xmlParser.arrParsedData[indexPath.row] as Dictionary<String, String>
         let loadThis: String = dict["link"]!
         
-        let alert = UIAlertController(title: "Open Safari?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "Read Article", style: .Default, handler: { action in
+        let alert = UIAlertController(title: "Open Safari?", message: "", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Read Article", style: .default, handler: { action in
             switch action.style{
-            case .Default:
+            case .default:
                 Mixpanel.sharedInstance().track("Opened Record Article", properties:["title":dict["title"]!])
-                UIApplication.sharedApplication().openURL(NSURL(string:loadThis)!)
+                UIApplication.shared.openURL(URL(string:loadThis)!)
                 
-            case .Cancel:
+            case .cancel:
                 print("cancel")
                 
-            case .Destructive:
+            case .destructive:
                 print("destructive")
             }
         }))
-        self.presentViewController(alert, animated: true, completion: nil)
-        
-        /*
-        let toPush = SWebViewController()
-        self.navigationController?.pushViewController(toPush, animated: true)
-        toPush.startLoadWithURLString(loadThis)
-*/
+        self.present(alert, animated: true, completion: nil)
     }
     
-    
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView(frame: CGRectMake(0, 0, tableView.bounds.size.width, 30))
-        let label = UILabel(frame:CGRectMake(10,2,200,20))
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 30))
+        let label = UILabel(frame:CGRect(x: 10,y: 2,width: 200,height: 20))
         label.text = self.tableView(self.tableView, titleForHeaderInSection: section)
         headerView.backgroundColor = UIColor(red: 243/255.0, green: 243/255.0, blue: 244/255.0, alpha: 1.0)
         label.font = UIFont(name: "HelveticaNeue", size: 14)
-        label.backgroundColor = UIColor.clearColor()
+        label.backgroundColor = UIColor.clear
         headerView.addSubview(label)
         return headerView
     }
-    
 }

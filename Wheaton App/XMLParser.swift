@@ -1,5 +1,5 @@
 //
-//  XMLParser.swift
+//  WheatonXMLParser.swift
 //  Wheaton App
 //
 //  Created by Jack Work on 7/1/15.
@@ -11,51 +11,39 @@
 
 import UIKit
 
-@objc protocol XMLParserDelegate{
+@objc protocol WheatonXMLParserDelegate {
     func parsingWasFinished()
 }
 
-class XMLParser: NSObject, NSXMLParserDelegate {
-    
+class WheatonXMLParser: NSObject, XMLParserDelegate {
     var arrParsedData = [Dictionary<String, String>]()
-    
     var currentDataDictionary = Dictionary<String, String>()
-    
     var currentElement = ""
-    
     var foundCharacters = ""
+    var delegate: WheatonXMLParserDelegate?
     
-    var delegate : XMLParserDelegate?
-    
-    
-    func startParsingWithContentsOfURL(rssURL: NSURL) {
-        let parser = NSXMLParser(contentsOfURL: rssURL)!
+    func startParsingWithContentsOfURL(_ rssURL: URL) {
+        let parser = Foundation.XMLParser(contentsOf: rssURL)!
         parser.delegate = self
         parser.parse()
     }
     
+    // MARK: NSXMLParserDelegate method implementation
     
-    
-    //MARK: NSXMLParserDelegate method implementation
-    
-    func parserDidEndDocument(parser: NSXMLParser) {
+    func parserDidEndDocument(_ parser: XMLParser) {
         delegate?.parsingWasFinished()
     }
     
-    
-    func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
         currentElement = elementName
 
     }
-    
-    
-    
-    
-    func parser(parser: NSXMLParser, didEndElement elementName: String!, namespaceURI: String!, qualifiedName qName: String!) {
+
+    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if !foundCharacters.isEmpty {
             
             if elementName == "link"{
-                foundCharacters = (foundCharacters as NSString).substringFromIndex(3)
+                foundCharacters = (foundCharacters as NSString).substring(from: 3)
             }
             
             currentDataDictionary[currentElement] = foundCharacters
@@ -69,20 +57,20 @@ class XMLParser: NSObject, NSXMLParserDelegate {
     }
     
     
-    func parser(parser: NSXMLParser, foundCharacters string: String!) {
+    func parser(_ parser: XMLParser, foundCharacters string: String) {
         if (currentElement == "title" && currentElement != "Appcoda") || currentElement == "link" || currentElement == "pubDate"{
             foundCharacters += string
         }
     }
     
     
-    func parser(parser: NSXMLParser, parseErrorOccurred parseError: NSError!) {
-        print(parseError.description)
+    func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
+        print(parseError)
     }
     
     
-    func parser(parser: NSXMLParser, validationErrorOccurred validationError: NSError!) {
-        print(validationError.description)
+    func parser(_ parser: XMLParser, validationErrorOccurred validationError: Error) {
+        print(validationError)
     }
     
 }

@@ -10,72 +10,61 @@ import Foundation
 
 
 class SWebViewController: UIViewController, UIWebViewDelegate, UIAlertViewDelegate {
-    var url = NSURL(string: "")
+    var url = URL(string: "")
     var allowZoom: Bool = false
     var refresh: Bool = false
     var myAct : UIActivityIndicatorView!
-    var urlToLaunch = NSURL(string:"")
+    var urlToLaunch = URL(string:"")
 
     var myWebView: UIWebView! = UIWebView()
 
-    override func viewWillAppear(animated: Bool) {
-        myAct = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
+    override func viewWillAppear(_ animated: Bool) {
+        myAct = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.white)
         myAct.hidesWhenStopped = true
         let barItem : UIBarButtonItem = UIBarButtonItem(customView: myAct)
         self.navigationItem.rightBarButtonItem = barItem
-        myWebView.frame = CGRect(x: 0.0, y: 0.0, width: UIScreen.mainScreen().bounds.width, height: self.view.bounds.size.height - 113)
+        myWebView.frame = CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: self.view.bounds.size.height - 113)
         myWebView.delegate = self
         self.view.addSubview(myWebView)
     }
     
-    
-    override func viewDidLoad(){
-        
-    }
-    
-    func startLoadWithURLString(aurlString: String){
-        url = NSURL(string: aurlString)
-        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            self.myWebView.loadRequest(NSURLRequest(URL: self.url!))
+    func startLoadWithURLString(_ aurlString: String){
+        url = URL(string: aurlString)
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.myWebView.loadRequest(URLRequest(url: self.url!))
         }
     }
     
-    
-    func startLoadWithHTMLString(ahtmlString: String){
-        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
+    func startLoadWithHTMLString(_ ahtmlString: String){
+        DispatchQueue.global(qos: .userInitiated).async {
             self.myWebView.loadHTMLString(ahtmlString, baseURL: nil)
         }
     }
     
-    
-    func startLoad(){
-        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            self.myWebView.loadRequest(NSURLRequest(URL: self.url!))
+    func startLoad() {
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.myWebView.loadRequest(URLRequest(url: self.url!))
         }
     }
-
     
-    func webViewDidStartLoad(webView: UIWebView) {
+    func webViewDidStartLoad(_ webView: UIWebView) {
         myAct.startAnimating()
     }
     
-    func webViewDidFinishLoad(webView: UIWebView) {
+    func webViewDidFinishLoad(_ webView: UIWebView) {
         myAct.stopAnimating()
     }
     
 
-    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        if (navigationType == UIWebViewNavigationType.LinkClicked){
-            urlToLaunch = request.URL
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        if (navigationType == UIWebViewNavigationType.linkClicked){
+            urlToLaunch = request.url
             let alert = UIAlertView()
             alert.delegate = self
             alert.title = "Leave Wheaton App?"
             alert.message = "Open link in Safari?"
-            alert.addButtonWithTitle("Cancel")
-            alert.addButtonWithTitle("Okay")
+            alert.addButton(withTitle: "Cancel")
+            alert.addButton(withTitle: "Okay")
             alert.show()
             return false
         }
@@ -83,10 +72,9 @@ class SWebViewController: UIViewController, UIWebViewDelegate, UIAlertViewDelega
     }
     
     
-    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+    func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
         if buttonIndex == 1 {
-            UIApplication.sharedApplication().openURL(urlToLaunch!)
+            UIApplication.shared.openURL(urlToLaunch!)
         }
     }
-    
 }

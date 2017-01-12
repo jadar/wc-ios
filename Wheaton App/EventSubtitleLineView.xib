@@ -1,9 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -15,36 +18,46 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" misplaced="YES" text="01" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K6F-DI-IhW">
-                        <rect key="frame" x="6" y="17" width="28" height="21"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="01" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K6F-DI-IhW">
+                        <rect key="frame" x="6" y="14.5" width="28" height="26.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="28" id="SYU-1e-eHB"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" misplaced="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="IDN-AT-d3r">
-                        <rect key="frame" x="42" y="6" width="258" height="21"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="IDN-AT-d3r">
+                        <rect key="frame" x="42" y="6" width="270" height="19.5"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                        <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" misplaced="YES" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="kH0-VW-8bE">
-                        <rect key="frame" x="42" y="28" width="258" height="21"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="249" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="kH0-VW-8bE">
+                        <rect key="frame" x="42" y="25.5" width="270" height="23.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </label>
-                    <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3j2-gI-Kul">
+                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3j2-gI-Kul">
                         <rect key="frame" x="0.0" y="0.0" width="3" height="54"/>
-                        <color key="backgroundColor" red="0.89019607840000003" green="0.43529411759999997" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.89019607840000003" green="0.43529411759999997" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="3" id="93c-oD-RVI"/>
+                        </constraints>
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="kH0-VW-8bE" firstAttribute="leading" secondItem="DRP-rG-s51" secondAttribute="leadingMargin" constant="34" id="KDg-Fq-n1O"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="IDN-AT-d3r" secondAttribute="trailing" constant="12" id="KUd-ai-9M0"/>
-                    <constraint firstItem="IDN-AT-d3r" firstAttribute="leading" secondItem="DRP-rG-s51" secondAttribute="leadingMargin" constant="34" id="RkN-Rk-bHq"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="kH0-VW-8bE" secondAttribute="trailing" constant="12" id="YbH-zy-FNw"/>
+                    <constraint firstItem="3j2-gI-Kul" firstAttribute="leading" secondItem="DRP-rG-s51" secondAttribute="leading" id="0y3-VN-HIm"/>
+                    <constraint firstAttribute="bottom" secondItem="3j2-gI-Kul" secondAttribute="bottom" constant="1" id="5E7-j3-qko"/>
+                    <constraint firstItem="IDN-AT-d3r" firstAttribute="leading" secondItem="K6F-DI-IhW" secondAttribute="trailing" constant="8" id="CuQ-Bj-JEK"/>
+                    <constraint firstItem="3j2-gI-Kul" firstAttribute="top" secondItem="DRP-rG-s51" secondAttribute="top" id="IX7-ys-niS"/>
+                    <constraint firstAttribute="trailing" secondItem="IDN-AT-d3r" secondAttribute="trailing" constant="8" id="KGr-jg-Oih"/>
+                    <constraint firstAttribute="trailing" secondItem="kH0-VW-8bE" secondAttribute="trailing" constant="8" id="X8W-L0-juZ"/>
+                    <constraint firstAttribute="bottom" secondItem="kH0-VW-8bE" secondAttribute="bottom" constant="6" id="YWE-5q-4Sm"/>
+                    <constraint firstItem="IDN-AT-d3r" firstAttribute="top" secondItem="DRP-rG-s51" secondAttribute="top" constant="6" id="cPU-OH-2a6"/>
+                    <constraint firstItem="K6F-DI-IhW" firstAttribute="centerY" secondItem="DRP-rG-s51" secondAttribute="centerY" id="dzb-37-YaZ"/>
+                    <constraint firstItem="kH0-VW-8bE" firstAttribute="leading" secondItem="K6F-DI-IhW" secondAttribute="trailing" constant="8" id="qjL-5g-yRO"/>
+                    <constraint firstItem="kH0-VW-8bE" firstAttribute="top" secondItem="IDN-AT-d3r" secondAttribute="bottom" id="rVK-vr-yey"/>
                     <constraint firstItem="K6F-DI-IhW" firstAttribute="leading" secondItem="3j2-gI-Kul" secondAttribute="trailing" constant="3" id="zaP-mE-EBB"/>
                 </constraints>
             </tableViewCellContentView>
@@ -59,6 +72,6 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
+        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
     </simulatedMetricsContainer>
 </document>
